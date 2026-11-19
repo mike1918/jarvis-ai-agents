@@ -1,6 +1,6 @@
 # Реестр агентов — JARVIS AI CITY
 
-Всего определений: **127** · активных: **126** · отключено: **1** · цель: 300.
+Всего определений: **142** · активных: **141** · отключено: **1** · цель: 300.
 
 Файл генерируется командой `python3 tools/agentlib.py build` — не редактируйте вручную.
 
@@ -121,13 +121,30 @@
 | `machine-learning-engineer` | sonnet | write | deploy, optimize, or serve machine learning models at scale in production environments. |
 | `mlops-engineer` | sonnet | write | design and implement ML infrastructure, set up CI/CD for machine learning models, establish model versioning systems, or optimize ML platforms for reliability and automation. Invoke this agent to buil |
 
-## 06-developer-experience — Рова Вав — мастерские инструментов (3)
+## 06-developer-experience — Рова Вав — мастерские инструментов (4)
 
 | Агент | Модель | Доступ | Специализация |
 |---|---|---|---|
+| `code-executor` | sonnet | write | a small program, script or data transformation must actually be written and run to get an answer — reproduce a bug, compute a result, convert files — inside the project sandbox. ⚠️ prefers the openhands runtime (runs code in the project); needs owner confirmation |
 | `codebase-orchestrator` | inherit | write | repository-wide refactor governance with explicit approval loops, weighted risk prioritization, diff previews, and deterministic fallback strategies. ⚠️ removed 6 invalid tool names (agent names / plugin skills / MCP gateway); subagents cannot launch subagents; orchestration is done by the main session |
 | `license-engineer` | inherit | write | architecting, implementing, or optimizing end-to-end legal licensing systems—from OSI standard selection and dependency compliance pipelines to proprietary deployment and risk monitoring. |
 | `technical-writer` | haiku | write | create, improve, or maintain technical documentation including API references, user guides, SDK documentation, and getting-started guides. |
+
+## 07-specialized-domains — Промзона — специализированные отрасли (11)
+
+| Агент | Модель | Доступ | Специализация |
+|---|---|---|---|
+| `blockchain-developer` | sonnet | write | Use this agent for smart contracts and blockchain integrations: Solidity/EVM contracts, wallets, transaction signing flows and on-chain data reading. |
+| `ecommerce-developer` | sonnet | write | building online stores: catalog, cart, checkout, payments integration, inventory, orders, shipping and promotions. |
+| `fintech-engineer` | sonnet | write | building or reviewing financial software: payments, ledgers, money arithmetic, reconciliation, idempotent transactions and audit trails. |
+| `game-developer` | sonnet | write | Use this agent for game and real-time 3D development: game loops, Three.js/WebGL scenes, physics, input, animation and performance on desktop and mobile. |
+| `healthtech-engineer` | sonnet | write | Use this agent for health software: patient data models, HL7/FHIR integration, consent, audit logging and privacy (HIPAA/GDPR) requirements. |
+| `i18n-rtl-specialist` | sonnet | write | Use this agent to internationalise apps for Russian, Hebrew, Arabic and English: translation keys, plural rules, RTL layouts, date/number/currency formats and fonts. |
+| `iot-engineer` | sonnet | write | Use this agent for IoT systems: device firmware interfaces, MQTT/CoAP messaging, telemetry pipelines, device provisioning and over-the-air updates. |
+| `maritime-weather-analyst` | haiku | research | Use this agent to read marine and weather forecasts for coastal operations (ports, marinas, beaches): wind, waves, visibility, and go/no-go windows for activities. ⚠️ advisory only; always check official marine forecasts before going to sea |
+| `port-logistics-planner` | sonnet | research | Use this agent for maritime and port logistics: container flows, vessel schedules, berth and yard planning, customs paperwork steps, and cost/time estimates for shipments. |
+| `real-estate-analyst` | sonnet | research | Use this agent for real-estate questions: comparing listings, price per square metre, rental yield, neighbourhood factors, and the data model and features of real-estate websites. |
+| `telegram-bot-developer` | sonnet | write | Use this agent to build Telegram bots: commands, inline keyboards, webhooks, payments, mini apps and moderation, with safe token handling. |
 
 ## 08-business-product — Сити — деловой центр (18)
 
@@ -152,7 +169,7 @@
 | `ux-microcopy-reviewer` | sonnet | read-only | Use this agent after changing user-facing interface text (buttons, error messages, empty states, form labels, confirmations, toasts) to review it for clarity, consistency and accessibility before it s |
 | `ux-researcher` | sonnet | research | conduct user research, analyze user behavior, or generate actionable insights to validate design decisions and uncover user needs. Invoke when you need usability testing, user interviews, survey desig |
 
-## 09-meta-orchestration — Рова Зайн — диспетчерская (10)
+## 09-meta-orchestration — Рова Зайн — диспетчерская (12)
 
 | Агент | Модель | Доступ | Специализация |
 |---|---|---|---|
@@ -161,13 +178,15 @@
 | `error-coordinator` | sonnet | write | mine error logs and agent output for recurring failure and cascade patterns, then document grounded recovery and cascade-prevention strategies (as Markdown specs) that other agents or humans can act o ⚠️ coordinator role: produces a plan; the main session launches the workers |
 | `it-ops-orchestrator` | sonnet | write | Use for orchestrating complex IT operations tasks that span multiple domains (PowerShell automation, .NET development, infrastructure management, Azure, M365) by intelligently routing work to speciali ⚠️ coordinator role: produces a plan; the main session launches the workers |
 | `knowledge-synthesizer` | sonnet | write | mine recurring patterns from agent logs, session transcripts, and workflow history, then write grounded, evidence-cited findings that other agents or humans can act on. |
+| `local-assistant` | haiku | read-only | Use this agent for quick, low-cost answers that do not need tools or the internet — explanations, short rewrites, checklists, summaries of text given in the prompt. Designed to run on a local model (O ⚠️ made for the ollama runtime: free local answers, no tools |
 | `memory-curator` | sonnet | write | Use to maintain an agent's long-term memory across sessions — deciding what is worth saving, recalling relevant context before acting, recording corrections without erasing history, and pruning what n |
 | `multi-agent-coordinator` | inherit | write | plan how multiple concurrent subagents should communicate, sequence their work, share state through files, and handle failures — written up as a coordination plan or convention in Markdown. ⚠️ coordinator role: produces a plan; the main session launches the workers |
 | `performance-monitor` | haiku | write | analyze existing metric, log, and output files to spot performance patterns and anomalies, then write a grounded, evidence-cited observability plan (what to measure, thresholds, dashboards) as Markdow |
 | `task-distributor` | haiku | write | design and document a task-distribution strategy across multiple agents or workers — how to split work, order queues, respect priorities and deadlines, and balance load — written as a clear Markdown p ⚠️ coordinator role: produces a plan; the main session launches the workers |
 | `workflow-orchestrator` | inherit | write | design workflow and state-machine definitions — states, transitions, error handling, and compensation/rollback logic — and write them as specs or config that other agents or a runtime can execute. ⚠️ coordinator role: produces a plan; the main session launches the workers |
+| `workflow-planner` | sonnet | write | a multi-step task must be turned into an explicit plan of steps, owners (library agents) and checks before execution — e.g. as the plan node of the LangGraph JARVIS workflow. ⚠️ plan node of the LangGraph JARVIS workflow; plans only |
 
-## 10-research-analysis — Рова Хет — библиотека и аналитика (11)
+## 10-research-analysis — Рова Хет — библиотека и аналитика (12)
 
 | Агент | Модель | Доступ | Специализация |
 |---|---|---|---|
@@ -182,6 +201,7 @@
 | `scientific-literature-researcher` | sonnet | research | search scientific literature and retrieve structured experimental data from published studies. Invoke this agent when the task requires evidence-grounded answers from full-text research papers, includ ⚠️ needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch |
 | `search-specialist` | sonnet | research | find specific information across multiple sources using advanced search strategies, query optimization, and targeted information retrieval. Invoke this agent when the priority is locating precise, rel |
 | `trend-analyst` | sonnet | research | analyzing emerging patterns, predicting industry shifts, or developing future scenarios to inform strategic planning and competitive positioning. |
+| `web-researcher` | sonnet | research | facts gathered from live websites — prices, documentation, release notes, listings, official announcements — with every claim tied to the page it came from. ⚠️ prefers the browser_use runtime (local Chromium) or Claude Code with WebSearch/WebFetch |
 
 ## disabled — Отключённые (1)
 

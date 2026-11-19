@@ -104,7 +104,8 @@ def build():
                     "district": dist.get(folder, "—"), "path": os.path.relpath(path, ROOT),
                     "description": str(fm["description"]).strip(), "tools": tools, "model": fm.get("model") or "inherit",
                     "access": access, "auto_route": a.get("auto_route", not disabled), "disabled": disabled,
-                    "origin": a.get("origin", "jarvis-ai-agents library"), "fix_applied": a.get("fix_applied"), "note": a.get("note")})
+                    "origin": a.get("origin", "jarvis-ai-agents library"), "fix_applied": a.get("fix_applied"), "note": a.get("note"),
+                    "runtime": a.get("runtime")})
     reg.sort(key=lambda r: (r["folder"], r["name"]))
     active = [r for r in reg if not r["disabled"]]
     json.dump({"source": "github.com/mike1918/jarvis-ai-agents", "count_total": len(reg), "count_active": len(active),

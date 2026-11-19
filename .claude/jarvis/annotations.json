@@ -1,15 +1,98 @@
 {
  "_comment": "Per-agent metadata that is not part of Claude Code frontmatter. Read by tools/build_registry.py.",
- "jarvis": {"note": "coordinator written for this library (not from the original collection); run as main agent: claude --agent jarvis", "origin": "jarvis"},
- "agent-installer": {"auto_route": false, "disabled": true, "note": "disabled: downloads unreviewed agent files from VoltAgent/awesome-claude-code-subagents; kept in library/disabled/"},
- "codebase-orchestrator": {"fix_applied": "removed 6 invalid tool names (agent names / plugin skills / MCP gateway)", "note": "subagents cannot launch subagents; orchestration is done by the main session"},
- "ui-ux-tester": {"fix_applied": "removed invalid tool names 'chrome-mcp', 'computer-use'", "note": "no browser tool; use Playwright via Bash"},
- "scientific-literature-researcher": {"note": "needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch"},
- "agent-organizer": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "multi-agent-coordinator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "task-distributor": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "workflow-orchestrator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "error-coordinator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "it-ops-orchestrator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
- "context-manager": {"note": "coordinator role: produces a plan; the main session launches the workers"}
+ "jarvis": {
+  "note": "coordinator written for this library (not from the original collection); run as main agent: claude --agent jarvis",
+  "origin": "jarvis"
+ },
+ "agent-installer": {
+  "auto_route": false,
+  "disabled": true,
+  "note": "disabled: downloads unreviewed agent files from VoltAgent/awesome-claude-code-subagents; kept in library/disabled/"
+ },
+ "codebase-orchestrator": {
+  "fix_applied": "removed 6 invalid tool names (agent names / plugin skills / MCP gateway)",
+  "note": "subagents cannot launch subagents; orchestration is done by the main session"
+ },
+ "ui-ux-tester": {
+  "fix_applied": "removed invalid tool names 'chrome-mcp', 'computer-use'",
+  "note": "no browser tool; use Playwright via Bash"
+ },
+ "scientific-literature-researcher": {
+  "note": "needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch"
+ },
+ "agent-organizer": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "multi-agent-coordinator": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "task-distributor": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "workflow-orchestrator": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "error-coordinator": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "it-ops-orchestrator": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "context-manager": {
+  "note": "coordinator role: produces a plan; the main session launches the workers"
+ },
+ "real-estate-analyst": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "port-logistics-planner": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "fintech-engineer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "ecommerce-developer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "iot-engineer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "game-developer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "blockchain-developer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "healthtech-engineer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "i18n-rtl-specialist": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "telegram-bot-developer": {
+  "origin": "jarvis-ai-city (added 2026-11)"
+ },
+ "maritime-weather-analyst": {
+  "origin": "jarvis-ai-city (added 2026-11)",
+  "note": "advisory only; always check official marine forecasts before going to sea"
+ },
+ "web-researcher": {
+  "origin": "jarvis-ai-city (added 2026-11)",
+  "runtime": "browser_use",
+  "note": "prefers the browser_use runtime (local Chromium) or Claude Code with WebSearch/WebFetch"
+ },
+ "local-assistant": {
+  "origin": "jarvis-ai-city (added 2026-11)",
+  "runtime": "ollama",
+  "note": "made for the ollama runtime: free local answers, no tools"
+ },
+ "code-executor": {
+  "origin": "jarvis-ai-city (added 2026-11)",
+  "runtime": "openhands",
+  "note": "prefers the openhands runtime (runs code in the project); needs owner confirmation"
+ },
+ "workflow-planner": {
+  "origin": "jarvis-ai-city (added 2026-11)",
+  "runtime": "langgraph",
+  "note": "plan node of the LangGraph JARVIS workflow; plans only"
+ }
 }

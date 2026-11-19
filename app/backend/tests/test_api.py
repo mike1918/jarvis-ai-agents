@@ -16,9 +16,9 @@ def test_setup_only_once_and_auth(client):
 
 def test_library_districts_are_real(client):
     lib = client.get("/api/library").json()
-    assert lib["count_active"] == 126 and lib["commit"]
+    assert lib["count_active"] >= 126 and lib["commit"]
     ds = client.get("/api/districts").json()
-    assert len(ds) == 11 and sum(d["count"] for d in ds) == 126
+    assert len(ds) == 11 and sum(d["count"] for d in ds) == lib["count_active"]
     names = {a for d in ds for a in d["agents"]}
     assert "jarvis" in names and "agent-installer" not in names
     d = client.get("/api/districts/04-quality-security").json()
@@ -125,7 +125,7 @@ def test_unified_events_and_agent_states(client):
     wait_status(client, t["id"], {"running"})
     st = client.get("/api/agent-states").json()
     assert st["states"]["debugger"]["state"] == "working" and st["states"]["debugger"]["task_id"] == t["id"]
-    assert st["states"]["sql-pro"]["state"] == "idle" and len(st["states"]) == 126
+    assert st["states"]["sql-pro"]["state"] == "idle" and len(st["states"]) == client.get("/api/library").json()["count_active"]
     wait_status(client, t["id"], {"succeeded"})
     assert client.get("/api/agent-states").json()["states"]["debugger"]["state"] == "completed"
     ev = client.get(f"/api/event-log?task_id={t['id']}").json()

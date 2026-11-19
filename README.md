@@ -139,3 +139,26 @@ Scientific literature specialist using [BGPT MCP](https://github.com/connerlambd
 - **Share insights:** Knowledge multiplies when shared
 
 Choose your research & analysis specialist and make better decisions today!
+
+## New agents (JARVIS AI CITY, 2026-11)
+
+Defined in `.claude/agents/<category>/`. Full registry: `.claude/jarvis/REGISTRY.md`.
+
+### Specialized domains (`07-specialized-domains`)
+- [**blockchain-developer**](.claude/agents/07-specialized-domains/blockchain-developer.md) - Smart contracts and wallet integrations with safety first
+- [**ecommerce-developer**](.claude/agents/07-specialized-domains/ecommerce-developer.md) - Online stores: catalog, cart, checkout, orders
+- [**fintech-engineer**](.claude/agents/07-specialized-domains/fintech-engineer.md) - Payments, ledgers and auditable money handling
+- [**game-developer**](.claude/agents/07-specialized-domains/game-developer.md) - Game loops and Three.js / WebGL scenes
+- [**healthtech-engineer**](.claude/agents/07-specialized-domains/healthtech-engineer.md) - FHIR/HL7 integrations with privacy and audit
+- [**i18n-rtl-specialist**](.claude/agents/07-specialized-domains/i18n-rtl-specialist.md) - Russian, Hebrew, Arabic, English; RTL layouts
+- [**iot-engineer**](.claude/agents/07-specialized-domains/iot-engineer.md) - MQTT telemetry, device provisioning, OTA updates
+- [**maritime-weather-analyst**](.claude/agents/07-specialized-domains/maritime-weather-analyst.md) - Marine forecasts and go/no-go windows
+- [**port-logistics-planner**](.claude/agents/07-specialized-domains/port-logistics-planner.md) - Container flows, documents, time and cost
+- [**real-estate-analyst**](.claude/agents/07-specialized-domains/real-estate-analyst.md) - Listings, price per m², yields, property sites
+- [**telegram-bot-developer**](.claude/agents/07-specialized-domains/telegram-bot-developer.md) - Telegram bots and Mini Apps with safe tokens
+
+### Runtime-oriented agents
+- [**code-executor**](.claude/agents/06-developer-experience/code-executor.md) - Answers by writing and running small programs (OpenHands runtime)
+- [**local-assistant**](.claude/agents/09-meta-orchestration/local-assistant.md) - Quick free answers on a local model (Ollama runtime)
+- [**web-researcher**](.claude/agents/10-research-analysis/web-researcher.md) - Sourced facts from live websites (browser-use runtime)
+- [**workflow-planner**](.claude/agents/09-meta-orchestration/workflow-planner.md) - Step plans with owners and checks (LangGraph plan node)

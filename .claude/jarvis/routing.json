@@ -227,6 +227,105 @@
    "agents": [
     "jarvis"
    ]
+  },
+  {
+   "task_type": "real-estate",
+   "pattern": "\\b(real estate|property|listing|rent(al)?|apartment|mortgage)\\b|недвижим|квартир|аренд|ипотек|риэлт",
+   "agents": [
+    "real-estate-analyst",
+    "ecommerce-developer"
+   ]
+  },
+  {
+   "task_type": "port-logistics",
+   "pattern": "\\b(port|shipping|container|freight|vessel|cargo|customs)\\b|порт|контейнер|груз|фрахт|таможн|судно",
+   "agents": [
+    "port-logistics-planner"
+   ]
+  },
+  {
+   "task_type": "fintech",
+   "pattern": "\\b(payments?|ledger|invoice|billing|fintech|bank)\\b|платеж|платёж|оплат|бухгалт|счёт-фактур|банк",
+   "agents": [
+    "fintech-engineer"
+   ]
+  },
+  {
+   "task_type": "ecommerce",
+   "pattern": "\\b(e-?commerce|shop|store|cart|checkout|catalog)\\b|магазин|корзин|каталог|интернет-магазин",
+   "agents": [
+    "ecommerce-developer"
+   ]
+  },
+  {
+   "task_type": "iot",
+   "pattern": "\\b(iot|mqtt|sensor|firmware|device fleet|esp32|arduino)\\b|датчик|прошивк|умный дом",
+   "agents": [
+    "iot-engineer"
+   ]
+  },
+  {
+   "task_type": "game-3d",
+   "pattern": "\\b(game|three\\.?js|webgl|3d scene|shader)\\b|игр|3d|трёхмерн|сцен",
+   "agents": [
+    "game-developer"
+   ]
+  },
+  {
+   "task_type": "blockchain",
+   "pattern": "\\b(blockchain|smart contract|solidity|web3|nft|wallet)\\b|блокчейн|смарт-контракт|кошел",
+   "agents": [
+    "blockchain-developer"
+   ]
+  },
+  {
+   "task_type": "health",
+   "pattern": "\\b(health|medical|patient|fhir|hl7|clinic)\\b|медицин|пациент|клиник|здоровь",
+   "agents": [
+    "healthtech-engineer"
+   ]
+  },
+  {
+   "task_type": "i18n-rtl",
+   "pattern": "\\b(i18n|l10n|translat\\w*|locali[sz]\\w*|rtl|hebrew|arabic)\\b|перевод|локализ|иврит|арабск|справа налево",
+   "agents": [
+    "i18n-rtl-specialist"
+   ]
+  },
+  {
+   "task_type": "telegram-bot",
+   "pattern": "\\btelegram (bot|mini ?app)\\b|телеграм[- ]?бот|бот для телеграм|телеграм-бот",
+   "agents": [
+    "telegram-bot-developer"
+   ]
+  },
+  {
+   "task_type": "marine-weather",
+   "pattern": "\\b(marine weather|waves?|wind forecast|sea state)\\b|погод[аы] на море|волн|ветер на море|шторм",
+   "agents": [
+    "maritime-weather-analyst"
+   ]
+  },
+  {
+   "task_type": "web-research",
+   "pattern": "\\b(find on the web|look up online|browse|website)\\b|найди в интернете|поищи в сети|на сайте|в интернете",
+   "agents": [
+    "web-researcher"
+   ]
+  },
+  {
+   "task_type": "run-code",
+   "pattern": "\\b(run (the )?code|execute|compute|calculate)\\b|запусти код|выполни код|посчитай|вычисли",
+   "agents": [
+    "code-executor"
+   ]
+  },
+  {
+   "task_type": "planning",
+   "pattern": "\\b(plan the steps|step[- ]by[- ]step plan|roadmap of steps)\\b|составь план|пошаговый план|план работ",
+   "agents": [
+    "workflow-planner"
+   ]
   }
  ],
  "fallback": "general-purpose"

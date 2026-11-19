@@ -1,7 +1,7 @@
 {
  "source": "github.com/mike1918/jarvis-ai-agents",
- "count_total": 127,
- "count_active": 126,
+ "count_total": 142,
+ "count_active": 141,
  "count_disabled": 1,
  "target_total": 300,
  "agents": [
@@ -26,7 +26,8 @@
    "disabled": false,
    "origin": "jarvis",
    "fix_applied": null,
-   "note": "coordinator written for this library (not from the original collection); run as main agent: claude --agent jarvis"
+   "note": "coordinator written for this library (not from the original collection); run as main agent: claude --agent jarvis",
+   "runtime": null
   },
   {
    "name": "api-designer",
@@ -49,7 +50,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "auth-integration-engineer",
@@ -72,7 +74,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "backend-developer",
@@ -95,7 +98,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "design-bridge",
@@ -120,7 +124,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "electron-pro",
@@ -143,7 +148,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "frontend-developer",
@@ -166,7 +172,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "fullstack-developer",
@@ -189,7 +196,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "graphql-architect",
@@ -212,7 +220,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "microservices-architect",
@@ -235,7 +244,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "mobile-developer",
@@ -258,7 +268,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ui-designer",
@@ -281,7 +292,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "webhook-engineer",
@@ -304,7 +316,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "websocket-engineer",
@@ -327,7 +340,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "angular-architect",
@@ -350,7 +364,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "cpp-pro",
@@ -373,7 +388,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "csharp-developer",
@@ -396,7 +412,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "django-developer",
@@ -419,7 +436,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "dotnet-core-expert",
@@ -442,7 +460,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "dotnet-framework-4.8-expert",
@@ -465,7 +484,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "elixir-expert",
@@ -488,7 +508,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "expo-react-native-expert",
@@ -511,7 +532,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "fastapi-developer",
@@ -534,7 +556,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "flutter-expert",
@@ -557,7 +580,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "golang-pro",
@@ -580,7 +604,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "java-architect",
@@ -603,7 +628,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "javascript-pro",
@@ -626,7 +652,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "kotlin-specialist",
@@ -649,7 +676,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "laravel-specialist",
@@ -672,7 +700,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "nextjs-developer",
@@ -695,7 +724,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "node-specialist",
@@ -718,7 +748,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "php-pro",
@@ -741,7 +772,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "postgres-pro",
@@ -764,7 +796,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "powershell-5.1-expert",
@@ -787,7 +820,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "powershell-7-expert",
@@ -810,7 +844,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "python-pro",
@@ -833,7 +868,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "rails-expert",
@@ -856,7 +892,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "react-specialist",
@@ -879,7 +916,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "rust-engineer",
@@ -902,7 +940,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "spring-boot-engineer",
@@ -925,7 +964,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "sql-pro",
@@ -948,7 +988,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "swift-expert",
@@ -971,7 +1012,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "symfony-specialist",
@@ -994,7 +1036,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "typescript-pro",
@@ -1017,7 +1060,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "vue-expert",
@@ -1040,7 +1084,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "wordpress-master",
@@ -1065,7 +1110,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "azure-infra-engineer",
@@ -1088,7 +1134,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "cloud-architect",
@@ -1111,7 +1158,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "database-administrator",
@@ -1134,7 +1182,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "deployment-engineer",
@@ -1157,7 +1206,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "devops-engineer",
@@ -1180,7 +1230,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "devops-incident-responder",
@@ -1203,7 +1254,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "docker-expert",
@@ -1226,7 +1278,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "incident-responder",
@@ -1249,7 +1302,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "kubernetes-specialist",
@@ -1272,7 +1326,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "network-engineer",
@@ -1295,7 +1350,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "platform-engineer",
@@ -1318,7 +1374,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "sre-engineer",
@@ -1341,7 +1398,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "terraform-engineer",
@@ -1364,7 +1422,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "terragrunt-expert",
@@ -1387,7 +1446,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "windows-infra-admin",
@@ -1410,7 +1470,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "accessibility-tester",
@@ -1431,7 +1492,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ad-security-reviewer",
@@ -1454,7 +1516,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "architect-reviewer",
@@ -1477,7 +1540,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "chaos-engineer",
@@ -1500,7 +1564,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "code-reviewer",
@@ -1523,7 +1588,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "compliance-auditor",
@@ -1543,7 +1609,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "debugger",
@@ -1566,7 +1633,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "error-detective",
@@ -1589,7 +1657,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "penetration-tester",
@@ -1610,7 +1679,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "performance-engineer",
@@ -1633,7 +1703,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ponder-auditor",
@@ -1654,7 +1725,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "powershell-security-hardening",
@@ -1677,7 +1749,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "qa-expert",
@@ -1698,7 +1771,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "security-auditor",
@@ -1718,7 +1792,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "security-engineer",
@@ -1741,7 +1816,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "surgeon-reviewer",
@@ -1762,7 +1838,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "test-automator",
@@ -1785,7 +1862,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ui-ux-tester",
@@ -1809,7 +1887,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": "removed invalid tool names 'chrome-mcp', 'computer-use'",
-   "note": "no browser tool; use Playwright via Bash"
+   "note": "no browser tool; use Playwright via Bash",
+   "runtime": null
   },
   {
    "name": "data-engineer",
@@ -1832,7 +1911,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "data-scientist",
@@ -1855,7 +1935,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "database-optimizer",
@@ -1878,7 +1959,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "machine-learning-engineer",
@@ -1901,7 +1983,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "mlops-engineer",
@@ -1924,7 +2007,32 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "code-executor",
+   "category": "developer-experience",
+   "folder": "06-developer-experience",
+   "district": "Рова Вав — мастерские инструментов",
+   "path": ".claude/agents/06-developer-experience/code-executor.md",
+   "description": "Use this agent when a small program, script or data transformation must actually be written and run to get an answer — reproduce a bug, compute a result, convert files — inside the project sandbox.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": "prefers the openhands runtime (runs code in the project); needs owner confirmation",
+   "runtime": "openhands"
   },
   {
    "name": "codebase-orchestrator",
@@ -1948,7 +2056,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": "removed 6 invalid tool names (agent names / plugin skills / MCP gateway)",
-   "note": "subagents cannot launch subagents; orchestration is done by the main session"
+   "note": "subagents cannot launch subagents; orchestration is done by the main session",
+   "runtime": null
   },
   {
    "name": "license-engineer",
@@ -1972,7 +2081,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "technical-writer",
@@ -1996,7 +2106,269 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "blockchain-developer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/blockchain-developer.md",
+   "description": "Use this agent for smart contracts and blockchain integrations: Solidity/EVM contracts, wallets, transaction signing flows and on-chain data reading.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "ecommerce-developer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/ecommerce-developer.md",
+   "description": "Use this agent when building online stores: catalog, cart, checkout, payments integration, inventory, orders, shipping and promotions.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "fintech-engineer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/fintech-engineer.md",
+   "description": "Use this agent when building or reviewing financial software: payments, ledgers, money arithmetic, reconciliation, idempotent transactions and audit trails.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "game-developer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/game-developer.md",
+   "description": "Use this agent for game and real-time 3D development: game loops, Three.js/WebGL scenes, physics, input, animation and performance on desktop and mobile.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "healthtech-engineer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/healthtech-engineer.md",
+   "description": "Use this agent for health software: patient data models, HL7/FHIR integration, consent, audit logging and privacy (HIPAA/GDPR) requirements.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "i18n-rtl-specialist",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/i18n-rtl-specialist.md",
+   "description": "Use this agent to internationalise apps for Russian, Hebrew, Arabic and English: translation keys, plural rules, RTL layouts, date/number/currency formats and fonts.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "iot-engineer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/iot-engineer.md",
+   "description": "Use this agent for IoT systems: device firmware interfaces, MQTT/CoAP messaging, telemetry pipelines, device provisioning and over-the-air updates.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "maritime-weather-analyst",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/maritime-weather-analyst.md",
+   "description": "Use this agent to read marine and weather forecasts for coastal operations (ports, marinas, beaches): wind, waves, visibility, and go/no-go windows for activities.",
+   "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "WebFetch",
+    "WebSearch"
+   ],
+   "model": "haiku",
+   "access": "research",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": "advisory only; always check official marine forecasts before going to sea",
+   "runtime": null
+  },
+  {
+   "name": "port-logistics-planner",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/port-logistics-planner.md",
+   "description": "Use this agent for maritime and port logistics: container flows, vessel schedules, berth and yard planning, customs paperwork steps, and cost/time estimates for shipments.",
+   "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "WebFetch",
+    "WebSearch"
+   ],
+   "model": "sonnet",
+   "access": "research",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "real-estate-analyst",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/real-estate-analyst.md",
+   "description": "Use this agent for real-estate questions: comparing listings, price per square metre, rental yield, neighbourhood factors, and the data model and features of real-estate websites.",
+   "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "WebFetch",
+    "WebSearch"
+   ],
+   "model": "sonnet",
+   "access": "research",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "telegram-bot-developer",
+   "category": "specialized-domains",
+   "folder": "07-specialized-domains",
+   "district": "Промзона — специализированные отрасли",
+   "path": ".claude/agents/07-specialized-domains/telegram-bot-developer.md",
+   "description": "Use this agent to build Telegram bots: commands, inline keyboards, webhooks, payments, mini apps and moderation, with safe token handling.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ai-writing-auditor",
@@ -2019,7 +2391,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "assumption-mapping",
@@ -2043,7 +2416,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "backlog-grooming",
@@ -2067,7 +2441,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "business-analyst",
@@ -2091,7 +2466,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "content-marketer",
@@ -2115,7 +2491,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "content-quality-editor",
@@ -2136,7 +2513,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "customer-success-manager",
@@ -2160,7 +2538,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "gdpr-ccpa-compliance",
@@ -2182,7 +2561,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "growth-loops",
@@ -2206,7 +2586,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "landing-page-copywriter",
@@ -2230,7 +2611,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "legal-advisor",
@@ -2254,7 +2636,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "product-manager",
@@ -2278,7 +2661,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "project-manager",
@@ -2302,7 +2686,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "sales-engineer",
@@ -2326,7 +2711,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "scrum-master",
@@ -2350,7 +2736,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "telegram-ads-analyst",
@@ -2372,7 +2759,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ux-microcopy-reviewer",
@@ -2392,7 +2780,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "ux-researcher",
@@ -2414,7 +2803,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "agent-organizer",
@@ -2436,7 +2826,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "context-manager",
@@ -2458,7 +2849,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "error-coordinator",
@@ -2480,7 +2872,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "it-ops-orchestrator",
@@ -2503,7 +2896,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "knowledge-synthesizer",
@@ -2525,7 +2919,29 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "local-assistant",
+   "category": "meta-orchestration",
+   "folder": "09-meta-orchestration",
+   "district": "Рова Зайн — диспетчерская",
+   "path": ".claude/agents/09-meta-orchestration/local-assistant.md",
+   "description": "Use this agent for quick, low-cost answers that do not need tools or the internet — explanations, short rewrites, checklists, summaries of text given in the prompt. Designed to run on a local model (Ollama).",
+   "tools": [
+    "Read",
+    "Grep",
+    "Glob"
+   ],
+   "model": "haiku",
+   "access": "read-only",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": "made for the ollama runtime: free local answers, no tools",
+   "runtime": "ollama"
   },
   {
    "name": "memory-curator",
@@ -2547,7 +2963,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "multi-agent-coordinator",
@@ -2569,7 +2986,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "performance-monitor",
@@ -2591,7 +3009,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "task-distributor",
@@ -2613,7 +3032,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
   },
   {
    "name": "workflow-orchestrator",
@@ -2635,7 +3055,31 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "coordinator role: produces a plan; the main session launches the workers"
+   "note": "coordinator role: produces a plan; the main session launches the workers",
+   "runtime": null
+  },
+  {
+   "name": "workflow-planner",
+   "category": "meta-orchestration",
+   "folder": "09-meta-orchestration",
+   "district": "Рова Зайн — диспетчерская",
+   "path": ".claude/agents/09-meta-orchestration/workflow-planner.md",
+   "description": "Use this agent when a multi-step task must be turned into an explicit plan of steps, owners (library agents) and checks before execution — e.g. as the plan node of the LangGraph JARVIS workflow.",
+   "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep"
+   ],
+   "model": "sonnet",
+   "access": "write",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": "plan node of the LangGraph JARVIS workflow; plans only",
+   "runtime": "langgraph"
   },
   {
    "name": "ab-test-analysis",
@@ -2657,7 +3101,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "cohort-analysis",
@@ -2679,7 +3124,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "competitive-analyst",
@@ -2701,7 +3147,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "data-researcher",
@@ -2723,7 +3170,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "first-principles-thinking",
@@ -2745,7 +3193,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "market-researcher",
@@ -2767,7 +3216,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "project-idea-validator",
@@ -2791,7 +3241,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "research-analyst",
@@ -2813,7 +3264,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "scientific-literature-researcher",
@@ -2834,7 +3286,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch"
+   "note": "needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch",
+   "runtime": null
   },
   {
    "name": "search-specialist",
@@ -2856,7 +3309,8 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
   },
   {
    "name": "trend-analyst",
@@ -2878,7 +3332,31 @@
    "disabled": false,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": null
+   "note": null,
+   "runtime": null
+  },
+  {
+   "name": "web-researcher",
+   "category": "research-analysis",
+   "folder": "10-research-analysis",
+   "district": "Рова Хет — библиотека и аналитика",
+   "path": ".claude/agents/10-research-analysis/web-researcher.md",
+   "description": "Use this agent when you need facts gathered from live websites — prices, documentation, release notes, listings, official announcements — with every claim tied to the page it came from.",
+   "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "WebFetch",
+    "WebSearch"
+   ],
+   "model": "sonnet",
+   "access": "research",
+   "auto_route": true,
+   "disabled": false,
+   "origin": "jarvis-ai-city (added 2026-11)",
+   "fix_applied": null,
+   "note": "prefers the browser_use runtime (local Chromium) or Claude Code with WebSearch/WebFetch",
+   "runtime": "browser_use"
   },
   {
    "name": "agent-installer",
@@ -2900,7 +3378,8 @@
    "disabled": true,
    "origin": "jarvis-ai-agents library",
    "fix_applied": null,
-   "note": "disabled: downloads unreviewed agent files from VoltAgent/awesome-claude-code-subagents; kept in library/disabled/"
+   "note": "disabled: downloads unreviewed agent files from VoltAgent/awesome-claude-code-subagents; kept in library/disabled/",
+   "runtime": null
   }
  ]
 }

@@ -119,8 +119,8 @@ export const BUILDINGS: BuildingSpec[] = [
     interior: [{ name: "Склад и насосная", rooms: [R("fa-store", "Склад комплектующих", "storage", -23, -16, 30, 32), R("fa-pump", "Генераторы и насосы", "machines", 8, -16, 15, 32)] },
                { name: "Сборочный цех", rooms: [R("fa-line", "Конвейер сборки", "assembly", -23, -16, 46, 32)] },
                { name: "Операторская", rooms: [R("fa-ops", "Операторская", "control", -23, -16, 26, 32), R("fa-eng", "Инженерный отдел", "office", 4, -16, 19, 32)] }] },
-  { id: "factory-2", name: "Завод спецотраслей (резерв)", kind: "factory", district: "industrial", x: 210, z: -150, w: 42, d: 34, floors: 3, folders: ["07-specialized-domains"],
-    interior: [{ name: "Сборочный цех", rooms: [R("fb-line", "Конвейер (не занят)", "assembly", -21, -16, 42, 32)] },
+  { id: "factory-2", name: "Завод спецотраслей", kind: "factory", district: "industrial", x: 210, z: -150, w: 42, d: 34, floors: 3, folders: ["07-specialized-domains"],
+    interior: [{ name: "Сборочный цех", rooms: [R("fb-line", "Конвейер", "assembly", -21, -16, 42, 32)] },
                { name: "Склад", rooms: [R("fb-store", "Склад", "storage", -21, -16, 42, 32)] },
                { name: "Операторская", rooms: [R("fb-ops", "Операторская", "control", -21, -16, 42, 32)] }] },
 ];
