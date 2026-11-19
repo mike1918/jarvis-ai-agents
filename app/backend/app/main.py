@@ -131,6 +131,9 @@ def visual_states():
         st = {"queued": "assigned", "awaiting_approval": "waiting", "running": "working"}[t["status"]]
         put(t["agent"], st, t, t["started_at"] or t["created_at"])
         if t["status"] == "running":
+            for ev in db.q("SELECT ts, data FROM task_events WHERE task_id=? AND kind='delegate.finish' ORDER BY id", (t["id"],)):
+                d = json.loads(ev["data"] or "{}")                      # specialist finished its part while jarvis continues
+                put(d.get("agent"), "error" if d.get("is_error") else "completed", t, ev["ts"])
             delegates_now = engine.delegates.get(t["id"], [])
             ever = db.q1("SELECT 1 FROM task_events WHERE task_id=? AND kind='delegate.start'", (t["id"],))
             if ever and not delegates_now: out[t["agent"]]["state"] = "reviewing"   # coordinator checks specialists' output

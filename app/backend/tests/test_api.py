@@ -106,6 +106,9 @@ def test_claude_executor_stream_parsing():
         assert c.get(f"/api/tasks/{a['id']}").json()["delegates_now"] == ["qa-expert"]      # still working after async_launched
         time.sleep(1.4)
         assert c.get(f"/api/tasks/{a['id']}").json()["delegates_now"] == []                 # finished per guard journal
+        if c.get(f"/api/tasks/{a['id']}").json()["status"] == "running":
+            st = c.get("/api/agent-states").json()["states"]
+            assert st["qa-expert"]["state"] == "completed" and st["jarvis"]["state"] == "reviewing"
         assert wait_status(c, a["id"], {"succeeded"})["delegated"] == '["qa-expert"]'
         h = c.post("/api/commands", json={"text": "hang forever"}).json()["task"]
         wait_status(c, h["id"], {"running"}); assert c.post(f"/api/tasks/{h['id']}/cancel").json()["ok"]
