@@ -1,153 +1,141 @@
-# Data & AI Subagents
+# Research & Analysis Subagents
 
-Data & AI subagents are your specialists in the world of data engineering, machine learning, and artificial intelligence. These experts handle everything from building robust data pipelines to training sophisticated ML models, from optimizing databases to deploying AI systems at scale. They bridge the gap between raw data and intelligent applications, ensuring your data-driven solutions are efficient, scalable, and impactful.
+Research & Analysis subagents are your investigative powerhouses, specializing in finding, analyzing, and synthesizing information from diverse sources. These experts excel at deep research, competitive intelligence, market analysis, and trend identification. They transform raw information into actionable insights, helping you make informed decisions based on comprehensive analysis and data-driven research.
 
-## When to Use Data & AI Subagents
+## When to Use Research & Analysis Subagents
 
 Use these subagents when you need to:
-- **Build data pipelines** for ETL/ELT workflows
-- **Train machine learning models** for predictions and insights
-- **Design AI systems** for production deployment
-- **Optimize database performance** at scale
-- **Implement NLP solutions** for text processing
-- **Create computer vision** applications
-- **Deploy ML models** with MLOps best practices
-- **Analyze data** for business insights
+- **Conduct comprehensive research** on any topic
+- **Find specific information** across multiple sources
+- **Analyze market dynamics** and opportunities
+- **Track competitive intelligence** systematically
+- **Identify emerging trends** before others
+- **Gather and analyze data** for insights
+- **Synthesize complex information** into clear findings
+- **Make data-driven decisions** with confidence
 
 ## Available Subagents
 
-### [**ai-engineer**](ai-engineer.md) - AI system design and deployment expert
-AI systems specialist building production-ready artificial intelligence solutions. Masters model deployment, scaling, and integration. Bridges the gap between AI research and real-world applications.
+### [**ab-test-analysis**](ab-test-analysis.md) - A/B test analysis and ship/no-ship decision specialist
+Statistical analysis expert interpreting A/B test results, p-values, confidence intervals, and effect sizes. Makes principled ship/no-ship decisions using a structured framework and catches common analysis errors like peeking, multiple comparisons, and Simpson's Paradox.
 
-**Use when:** Deploying AI models to production, designing AI system architectures, integrating AI into applications, scaling AI services, or implementing AI pipelines.
+**Use when:** Analyzing A/B or experiment results, interpreting p-values, making ship or no-ship decisions, evaluating statistical vs. practical significance, or validating test integrity.
 
-### [**data-analyst**](data-analyst.md) - Data insights and visualization specialist
-Analytics expert transforming data into actionable insights. Masters statistical analysis, data visualization, and business intelligence tools. Tells compelling stories with data.
+### [**cohort-analysis**](cohort-analysis.md) - User cohort retention and behavioral analysis specialist
+Retention analysis expert understanding how user groups behave over time. Diagnoses retention curve shapes, identifies activation metrics (the "Aha Moment"), and tracks whether product improvements are actually moving retention numbers.
 
-**Use when:** Analyzing business data, creating dashboards, performing statistical analysis, building reports, or discovering data insights.
+**Use when:** Analyzing user retention, diagnosing where the retention curve drops, finding activation behaviors, comparing cohort performance over time, or assessing product-market fit signals.
 
-### [**data-engineer**](data-engineer.md) - Data pipeline architect
-Data infrastructure specialist building scalable data pipelines. Expert in ETL/ELT processes, data warehousing, and streaming architectures. Ensures data flows reliably from source to insight.
+### [**first-principles-thinking**](first-principles-thinking.md) - First principles problem-solving specialist
+Strategic thinking specialist breaking complex problems down to irreducible truths and rebuilding solutions from scratch. Applies the 5-step first principles method and 5D structured problem-solving framework to cut through assumptions.
 
-**Use when:** Building data pipelines, designing data architectures, implementing ETL processes, setting up data warehouses, or handling big data processing.
+**Use when:** Challenging why things are done a certain way, rethinking a product or process from scratch, solving a recurring problem that conventional approaches haven't fixed, or pressure-testing assumptions before committing to a solution.
 
-### [**data-scientist**](data-scientist.md) - Analytics and insights expert
-Data science practitioner combining statistics, machine learning, and domain expertise. Masters predictive modeling, experimentation, and advanced analytics. Extracts value from complex datasets.
+### [**research-analyst**](research-analyst.md) - Comprehensive research specialist
+Research expert conducting thorough investigations across domains. Masters research methodologies, source validation, and insight synthesis. Delivers comprehensive research reports on any topic.
 
-**Use when:** Building predictive models, conducting experiments, performing advanced analytics, developing ML algorithms, or solving complex data problems.
+**Use when:** Conducting deep research, investigating complex topics, validating information, creating research reports, or synthesizing multiple sources.
 
-### [**database-optimizer**](database-optimizer.md) - Database performance specialist
-Database performance expert ensuring queries run at lightning speed. Masters indexing strategies, query optimization, and database tuning. Makes databases perform at their peak.
+### [**search-specialist**](search-specialist.md) - Advanced information retrieval expert
+Search optimization expert finding needles in information haystacks. Masters advanced search techniques, query optimization, and source discovery. Locates hard-to-find information efficiently.
 
-**Use when:** Optimizing slow queries, designing efficient schemas, implementing indexing strategies, tuning database performance, or scaling databases.
+**Use when:** Finding specific information, optimizing search queries, discovering new sources, conducting systematic searches, or retrieving obscure data.
 
-### [**llm-architect**](llm-architect.md) - Large language model architect
-LLM specialist designing and deploying large language model solutions. Expert in prompt engineering, fine-tuning, and LLM applications. Harnesses the power of modern language models.
+### [**trend-analyst**](trend-analyst.md) - Emerging trends and forecasting expert
+Trend identification specialist spotting patterns before they become obvious. Expert in trend analysis, future forecasting, and weak signal detection. Helps organizations stay ahead of change.
 
-**Use when:** Implementing LLM solutions, designing prompt strategies, fine-tuning models, building chatbots, or creating AI-powered applications.
+**Use when:** Identifying emerging trends, forecasting future developments, analyzing pattern changes, monitoring industry evolution, or planning strategic responses.
 
-### [**machine-learning-engineer**](machine-learning-engineer.md) - Machine learning systems expert
-ML engineering specialist building end-to-end machine learning systems. Masters the entire ML lifecycle from data to deployment. Ensures models work reliably in production.
+### [**competitive-analyst**](competitive-analyst.md) - Competitive intelligence specialist
+Competitive intelligence expert analyzing competitor strategies and market positioning. Masters competitive benchmarking, SWOT analysis, and strategic recommendations. Provides actionable competitive insights.
 
-**Use when:** Building ML pipelines, implementing ML systems, deploying models, creating ML infrastructure, or productionizing ML solutions.
+**Use when:** Analyzing competitors, benchmarking performance, identifying competitive advantages, monitoring competitor moves, or developing competitive strategies.
 
-### [**ml-engineer**](ml-engineer.md) - Machine learning specialist
-Machine learning expert developing and optimizing ML models. Proficient in various algorithms, frameworks, and techniques. Solves complex problems with machine learning.
+### [**market-researcher**](market-researcher.md) - Market analysis and consumer insights
+Market analysis specialist understanding market dynamics and consumer behavior. Expert in market sizing, segmentation, and opportunity identification. Reveals market opportunities and risks.
 
-**Use when:** Training ML models, selecting algorithms, optimizing model performance, implementing ML solutions, or experimenting with new techniques.
+**Use when:** Analyzing market opportunities, understanding consumer behavior, sizing markets, identifying segments, or evaluating market entry strategies.
 
-### [**mlops-engineer**](mlops-engineer.md) - MLOps and model deployment expert
-MLOps specialist ensuring smooth ML model deployment and operations. Masters CI/CD for ML, model monitoring, and versioning. Brings DevOps practices to machine learning.
+### [**project-idea-validator**](project-idea-validator.md) - Brutal go or no-go idea validator
+Adversarial product idea specialist pressure-testing concepts against competitors, demand signals, and adoption friction. Focuses on killing weak ideas early and sharpening strong ones into evidence-backed MVPs.
 
-**Use when:** Setting up ML pipelines, implementing model monitoring, automating ML workflows, managing model versions, or establishing MLOps practices.
+**Use when:** Stress-testing a startup or product idea, checking whether differentiation is real, finding hidden competitors, deciding whether to pivot, or getting a clear go/no-go recommendation before building.
 
-### [**nlp-engineer**](nlp-engineer.md) - Natural language processing expert
-NLP specialist building systems that understand and generate human language. Expert in text processing, language models, and linguistic analysis. Makes machines understand text.
+### [**data-researcher**](data-researcher.md) - Data discovery and analysis expert
+Data investigation specialist extracting insights from complex datasets. Masters data mining, statistical analysis, and pattern recognition. Transforms raw data into meaningful findings.
 
-**Use when:** Building text processing systems, implementing chatbots, analyzing sentiment, extracting information from text, or developing language understanding features.
+**Use when:** Analyzing datasets, discovering data patterns, performing statistical analysis, mining for insights, or investigating data anomalies.
 
-### [**postgres-pro**](postgres-pro.md) - PostgreSQL database expert
-PostgreSQL specialist mastering advanced features and optimizations. Expert in complex queries, performance tuning, and PostgreSQL-specific capabilities. Unlocks PostgreSQL's full potential.
+### [**scientific-literature-researcher**](scientific-literature-researcher.md) - Scientific paper search and evidence synthesis
+Scientific literature specialist using [BGPT MCP](https://github.com/connerlambden/bgpt-mcp) to search a database of papers with structured experimental data extracted from full-text studies. Retrieves methods, results, sample sizes, and quality scores to deliver evidence-grounded analysis.
 
-**Use when:** Working with PostgreSQL, optimizing Postgres queries, implementing advanced features, designing PostgreSQL schemas, or troubleshooting Postgres issues.
-
-### [**prompt-engineer**](prompt-engineer.md) - Prompt optimization specialist
-Prompt engineering expert crafting effective prompts for AI models. Masters prompt design, testing, and optimization. Maximizes AI model performance through strategic prompting.
-
-**Use when:** Designing prompts for LLMs, optimizing AI responses, implementing prompt strategies, testing prompt effectiveness, or building prompt-based applications.
-
-### [**reinforcement-learning-engineer**](reinforcement-learning-engineer.md) - Reinforcement learning and agent training expert
-RL specialist designing environments, shaping rewards, and training agents with modern algorithms like PPO, SAC, and DQN. Masters sim-to-real transfer, multi-agent systems, and safe exploration strategies for robotics, gaming, and autonomous decision-making.
-
-**Use when:** Designing RL environments, training game AI or robotics agents, implementing policy gradient methods, optimizing reward functions, or deploying autonomous decision-making systems.
+**Use when:** Searching scientific literature, conducting systematic reviews, synthesizing experimental evidence, fact-checking claims against published data, or building evidence-grounded research reports.
 
 ## Quick Selection Guide
 
 | If you need to... | Use this subagent |
 |-------------------|-------------------|
-| Deploy AI systems | **ai-engineer** |
-| Analyze business data | **data-analyst** |
-| Build data pipelines | **data-engineer** |
-| Create ML models | **data-scientist** |
-| Optimize databases | **database-optimizer** |
-| Work with LLMs | **llm-architect** |
-| Build ML systems | **machine-learning-engineer** |
-| Train ML models | **ml-engineer** |
-| Deploy ML models | **mlops-engineer** |
-| Process text data | **nlp-engineer** |
-| Optimize PostgreSQL | **postgres-pro** |
-| Design AI prompts | **prompt-engineer** |
-| Train RL agents | **reinforcement-learning-engineer** |
+| Analyze A/B test results | **ab-test-analysis** |
+| Analyze user retention | **cohort-analysis** |
+| Challenge assumptions from scratch | **first-principles-thinking** |
+| Deep topic research | **research-analyst** |
+| Find specific information | **search-specialist** |
+| Identify future trends | **trend-analyst** |
+| Analyze competitors | **competitive-analyst** |
+| Understand markets | **market-researcher** |
+| Pressure-test product ideas | **project-idea-validator** |
+| Analyze data patterns | **data-researcher** |
+| Search scientific papers | **scientific-literature-researcher** |
 
-## Common Data & AI Patterns
+## Common Research Patterns
 
-**End-to-End ML System:**
-- **data-engineer** for data pipeline
-- **data-scientist** for model development
-- **ml-engineer** for model optimization
-- **mlops-engineer** for deployment
+**Market Intelligence:**
+- **market-researcher** for market analysis
+- **competitive-analyst** for competitor insights
+- **trend-analyst** for future directions
+- **data-researcher** for data validation
 
-**AI Application:**
-- **llm-architect** for LLM integration
-- **prompt-engineer** for prompt optimization
-- **ai-engineer** for system design
-- **nlp-engineer** for text processing
+**Strategic Research:**
+- **research-analyst** for comprehensive analysis
+- **search-specialist** for information gathering
+- **trend-analyst** for future planning
+- **competitive-analyst** for positioning
 
-**Data Platform:**
-- **data-engineer** for infrastructure
-- **database-optimizer** for performance
-- **postgres-pro** for PostgreSQL
-- **data-analyst** for insights
+**Idea Validation:**
+- **project-idea-validator** for go/no-go product scrutiny
+- **competitive-analyst** for direct rival teardown
+- **market-researcher** for market context
+- **trend-analyst** for demand timing
 
-**Production ML:**
-- **machine-learning-engineer** for ML systems
-- **mlops-engineer** for operations
-- **ai-engineer** for deployment
-- **data-engineer** for data flow
+**Data-Driven Insights:**
+- **data-researcher** for data analysis
+- **market-researcher** for market data
+- **trend-analyst** for pattern identification
+- **research-analyst** for synthesis
 
-**RL Systems:**
-- **reinforcement-learning-engineer** for agent training
-- **ml-engineer** for training infrastructure
-- **mlops-engineer** for model deployment
-- **ai-engineer** for system integration
+**Competitive Intelligence:**
+- **competitive-analyst** for competitor analysis
+- **market-researcher** for market context
+- **search-specialist** for information discovery
+- **trend-analyst** for industry evolution
 
 ## Getting Started
 
-1. **Define your data/AI objectives** clearly
-2. **Assess your data landscape** and requirements
-3. **Choose appropriate specialists** for your needs
-4. **Provide data context** and constraints
-5. **Follow best practices** for implementation
+1. **Define research objectives** clearly
+2. **Choose appropriate specialists** for your needs
+3. **Provide context and constraints** for focused research
+4. **Validate findings** through multiple sources
+5. **Apply insights** to decision-making
 
 ## Best Practices
 
-- **Start with data quality:** Good models need good data
-- **Iterate quickly:** ML is experimental by nature
-- **Monitor everything:** Models drift, data changes
-- **Version control:** Track data, code, and models
-- **Document thoroughly:** ML systems are complex
-- **Test rigorously:** Validate models before production
-- **Scale gradually:** Start small, prove value
-- **Stay ethical:** Consider AI's impact
+- **Start with clear questions:** Focus drives better research
+- **Use multiple sources:** Single sources can mislead
+- **Validate information:** Trust but verify
+- **Document methodology:** Research should be reproducible
+- **Consider biases:** All sources have perspectives
+- **Synthesize findings:** Raw data needs interpretation
+- **Update regularly:** Research has expiration dates
+- **Share insights:** Knowledge multiplies when shared
 
-Choose your data & AI specialist and unlock the power of your data today!
+Choose your research & analysis specialist and make better decisions today!
