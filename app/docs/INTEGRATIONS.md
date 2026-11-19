@@ -127,3 +127,29 @@ MCP filesystem/git servers are restricted to the task's project directory; voice
 - Piper: CLI installed; voices could not be downloaded here (Hugging Face blocked) — `/api/voice/speak` is tested
   with a CLI test double; real speech output is NOT verified.
 - Not verified: Claude Code actually using the MCP tools in a paid run.
+
+# Automations: n8n (n8n-io/n8n)
+
+Connected as a **separate local service** (npm `n8n` 2.48.6 on a private Node 24 in `.services/`, ≈ 2.9 GB, git-ignored).
+License: **Sustainable Use License** (fair-code, not OSI open source): free for your own internal use; offering
+n8n itself as a paid/hosted service to others needs a commercial license. Enterprise (`.ee.`) features are excluded.
+
+| Direction | How | Example workflow (`integrations/n8n/workflows/`) |
+|---|---|---|
+| city → n8n | runtime `#n8n` posts the task to a workflow webhook (`JARVIS_N8N_WEBHOOK`, default `jarvis-task`; `webhook:<path> text` selects another) and uses its "Respond to Webhook" answer. Critical → owner confirmation | `jarvis-task.json`: Webhook → Code → Respond |
+| n8n → city | n8n calls the city API with a **city API token** (`Authorization: Bearer jat_…`, operator rights, revocable, audited as `token:<name>`) | `city-create-task.json`: Webhook → HTTP Request `POST /api/commands` → Respond |
+
+```bash
+scripts/setup_n8n.sh                                   # Node 24 (sha256 verified) + n8n
+# create a token once (owner): tower → Доступ, or
+curl -b cookies -H 'content-type: application/json' -d '{"name":"n8n","role":"operator","confirm_password":"…"}' localhost:8000/api/tokens
+JARVIS_CITY_TOKEN=jat_… scripts/run_n8n.sh              # 127.0.0.1:5678, imports + publishes the example workflows
+```
+Open http://127.0.0.1:5678 to build your own workflows (schedules, Telegram, e-mail, Google Sheets…) that create
+city tasks or receive them. Telemetry, version notifications, personalisation and templates are disabled; n8n still
+tries to load its MCP-server catalogue from api.n8n.io at start (blocked in the test environment, harmless).
+
+Verified here with a real n8n 2.48.6: both workflows imported and published by the CLI; `#n8n @port-logistics-planner …`
+required the owner's password and returned the answer built by the n8n Code node (`backend/tests/test_n8n.py`);
+the n8n workflow created a city task for `sql-pro` through the API token, recorded in the audit as `token:n8n`
+(real uvicorn city server). API tokens: create (password), use, operator limits, revoke → 401 (`test_api_token_lifecycle`).

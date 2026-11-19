@@ -94,7 +94,7 @@ def run_command(user, text, *, source="text", password=None, ip=None, project_id
     mode = "read"
     if low.startswith("!write "): mode, t = "write", t[7:].strip()
     runtime = None
-    m = re.match(r"^#([a-z_]+)\s+(.+)$", t, re.S)          # "#ollama ...", "#langgraph ..." selects the runtime
+    m = re.match(r"^#([a-z][a-z0-9_]*)\s+(.+)$", t, re.S)          # "#ollama ...", "#langgraph ..." selects the runtime
     if m: runtime, t = m.group(1), m.group(2)
     agent = "jarvis"
     m = re.match(r"^@([a-z0-9][a-z0-9.-]*)\s+(.+)$", t, re.S)
