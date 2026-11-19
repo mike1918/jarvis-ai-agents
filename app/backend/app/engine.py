@@ -1,6 +1,6 @@
 """Task queue with controlled parallelism, budgets, approvals and kill switch."""
 import asyncio, json, time
-from . import db, events, eventlog, executor
+from . import db, events, eventlog, executor, runtimes
 from .config import settings
 
 class Engine:
@@ -24,7 +24,8 @@ class Engine:
     def budget_check(self, budget):
         lim = db.get_limits()
         day, month = db.spent_since(db.day_start()), db.spent_since(db.month_start())
-        reserved = sum(t["max_budget_usd"] for t in db.q("SELECT max_budget_usd FROM tasks WHERE status='running'"))
+        reserved = sum(t["max_budget_usd"] for t in db.q("SELECT max_budget_usd, runtime FROM tasks WHERE status='running'")
+                       if runtimes.is_paid(t["runtime"] or settings.executor))
         if day + reserved + budget > lim["daily_budget_usd"]:
             return f"daily budget: spent {day:.2f} + running {reserved:.2f} + this {budget:.2f} > {lim['daily_budget_usd']:.2f} USD"
         if month + reserved + budget > lim["monthly_budget_usd"]:
@@ -47,13 +48,13 @@ class Engine:
         free = int(lim["max_parallel_tasks"]) - len(self.runs)
         if free <= 0: return
         for t in db.q("SELECT * FROM tasks WHERE status='queued' ORDER BY priority DESC, id LIMIT ?", (free,)):
-            why = self.budget_check(t["max_budget_usd"])
+            why = self.budget_check(t["max_budget_usd"]) if runtimes.is_paid(executor.runtime_of(t)) else None   # free local runtimes keep working
             if why:
                 self._finish(t["id"], "failed", error="not started: " + why); continue
             self._start(t)
 
     def _start(self, t):
-        db.ex("UPDATE tasks SET status='running', started_at=?, executor=? WHERE id=? AND status='queued'", (time.time(), settings.executor, t["id"]))
+        db.ex("UPDATE tasks SET status='running', started_at=?, executor=? WHERE id=? AND status='queued'", (time.time(), executor.runtime_of(t), t["id"]))
         self.event(t["id"], "status", {"status": "running", "agent": t["agent"]})
         run = executor.Run(); self.runs[t["id"]] = run
         asyncio.create_task(self._run(t, run))
@@ -79,7 +80,7 @@ class Engine:
         finally:
             self.runs.pop(t["id"], None)
         u = res.usage or {}
-        if res.cost_usd or settings.executor != "dry":
+        if res.cost_usd or executor.runtime_of(t) != "dry":
             db.ex("INSERT INTO costs(ts,task_id,agent,usd,input_tokens,output_tokens,cache_tokens,model) VALUES(?,?,?,?,?,?,?,?)",
                   (time.time(), t["id"], t["agent"], res.cost_usd, u.get("input_tokens", 0), u.get("output_tokens", 0),
                    u.get("cache_creation_input_tokens", 0) + u.get("cache_read_input_tokens", 0), res.model))

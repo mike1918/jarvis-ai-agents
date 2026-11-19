@@ -144,3 +144,6 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; } td, th { padd
   .viewctl button { flex: none; padding: 6px 9px; }
   .panel.bpanel, .panel.agent-card, .panel.wide { top: auto; }
 }
+
+.cmdbar select.rt { max-width: 210px; }
+@media (max-width: 820px) { .cmdbar select.rt { max-width: 92px; } }

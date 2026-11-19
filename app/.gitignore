@@ -10,3 +10,4 @@ workspace/
 *.db-shm
 .env
 frontend/tsconfig.tsbuildinfo
+.venvs/

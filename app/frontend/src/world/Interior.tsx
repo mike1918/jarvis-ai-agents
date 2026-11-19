@@ -77,7 +77,7 @@ export function Interior({ b, layout, onRoom }: { b: BuildingSpec; layout: Layou
             {f.anims.map((a, i) => <Prop key={i} a={a} />)}
             {f.staff.map((s, i) => <Staff key={i} seat={s} i={i} />)}
             {layout.seats.filter((s) => s.floor === fi).map((s) => (
-              <AgentFigure key={s.agent} name={s.agent} seat={s.seat} door={s.door} state={states[s.agent]?.state ?? "idle"}
+              <AgentFigure key={s.agent} name={s.agent} seat={s.seat} door={s.door} state={states[s.agent]?.state ?? "idle"} runtime={states[s.agent]?.runtime}
                 color={b.kind === "tower" ? "#0ea5e9" : "#1d4ed8"} selected={agent === s.agent} onSelect={selectAgent} />
             ))}
             {focused && f.rooms.map((r) => (

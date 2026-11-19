@@ -6,7 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from . import auth, db, events, eventlog, library
+from . import auth, db, events, eventlog, library, runtimes
 from .auth import need, current_user
 from .config import settings
 from .engine import engine
@@ -116,13 +116,14 @@ RECENT_S = 600  # a finished task keeps its agent in "completed"/"error" for 10 
 def visual_states():
     """Visual state of every library agent, derived only from backend facts (tasks, live delegations, events)."""
     reg = library.agents(); now = time.time(); out = {}
-    active = db.q("SELECT id,agent,status,started_at,created_at,project_id,max_budget_usd FROM tasks "
+    active = db.q("SELECT id,agent,status,started_at,created_at,project_id,max_budget_usd,runtime FROM tasks "
                   "WHERE status IN ('running','queued','awaiting_approval') ORDER BY id")
-    recent = db.q("SELECT id,agent,status,finished_at,delegated,cost_usd,project_id FROM tasks "
+    recent = db.q("SELECT id,agent,status,finished_at,delegated,cost_usd,project_id,runtime FROM tasks "
                   "WHERE status IN ('succeeded','failed') AND finished_at>? ORDER BY finished_at", (now - RECENT_S,))
-    for a in reg: out[a["name"]] = {"state": "idle", "task_id": None, "since": None, "project_id": None}
+    for a in reg: out[a["name"]] = {"state": "idle", "task_id": None, "since": None, "project_id": None, "runtime": None}
     def put(name, state, task, since):
-        if name in out: out[name] = {"state": state, "task_id": task["id"], "since": since, "project_id": task["project_id"]}
+        if name in out: out[name] = {"state": state, "task_id": task["id"], "since": since, "project_id": task["project_id"],
+                                     "runtime": task.get("runtime") or settings.executor}
     for t in recent:
         st = "completed" if t["status"] == "succeeded" else "error"
         put(t["agent"], st, t, t["finished_at"])
@@ -148,6 +149,11 @@ def agent_states_all(user=Depends(need("read"))):
 @app.get("/api/event-log")
 def event_log(after_id: int = 0, limit: int = 200, task_id: int | None = None, agent: str | None = None, user=Depends(need("read"))):
     return eventlog.recent(after_id, limit, task_id, agent)
+
+@app.get("/api/runtimes")
+def runtimes_status(user=Depends(need("read"))):
+    return {"default": settings.executor, "runtimes": runtimes.status(),
+            "llm_base_url": runtimes.llm_base_url(), "llm_local": runtimes.llm_is_local()}
 
 @app.get("/api/library")
 def lib(user=Depends(need("read"))): return library.info()
@@ -201,11 +207,12 @@ class NewTask(BaseModel):
     priority: int = 0
     project_id: int | None = None
     confirm_password: str | None = None
+    runtime: str | None = None
 
 @app.post("/api/tasks")
 def post_task(t: NewTask, request: Request, user=Depends(need("task.create"))):
     return create_task(user, prompt=t.prompt, agent=t.agent, mode=t.mode, budget=t.budget_usd, priority=t.priority,
-                       project_id=t.project_id, source="api", password=t.confirm_password, ip=ip(request))
+                       project_id=t.project_id, source="api", password=t.confirm_password, ip=ip(request), runtime=t.runtime)
 
 @app.get("/api/tasks")
 def list_tasks(status: str | None = None, agent: str | None = None, limit: int = 50, user=Depends(need("read"))):

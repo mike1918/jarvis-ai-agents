@@ -11,6 +11,9 @@ export default function CommandBar({ prefill, onResult, canCommand }: { prefill:
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("voiceLang") || "ru-RU"; } catch { return "ru-RU"; } });
   const [hints, setHints] = useState<[string, string[]][]>([]);
+  const [runtimes, setRuntimes] = useState<{ id: string; label: string; ready: boolean; problems: string[]; critical: boolean; paid: boolean }[]>([]);
+  const [runtime, setRuntime] = useState("");
+  useEffect(() => { api("/runtimes").then((r) => { setRuntimes(r.runtimes); setRuntime((x) => x || r.default); }).catch(() => {}); }, []);
   const stopRef = useRef<() => void>(() => {});
   const inputRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => { if (prefill) { setText(prefill); inputRef.current?.focus(); } }, [prefill]);
@@ -25,7 +28,9 @@ export default function CommandBar({ prefill, onResult, canCommand }: { prefill:
     if (!t.trim()) return;
     setBusy(true);
     try {
-      const r = await withConfirm((pw) => api("/commands", { body: { text: t, source, confirm_password: pw } }), ask);
+      // "#runtime" prefix selects the executor (not for slash commands or when the user already typed one)
+      const body = !t.startsWith("/") && !t.trim().startsWith("#") && runtime ? `#${runtime} ${t}` : t;
+      const r = await withConfirm((pw) => api("/commands", { body: { text: body, source, confirm_password: pw } }), ask);
       if (!r) return;
       const msg = r.type === "task"
         ? `Задача #${r.task.id} → ${r.task.agent}: ${r.task.status === "awaiting_approval" ? "ждёт подтверждения владельца" : "в очереди"}`
@@ -61,6 +66,12 @@ export default function CommandBar({ prefill, onResult, canCommand }: { prefill:
         <textarea ref={inputRef} rows={1} value={text} placeholder={window.innerWidth < 700 ? "Задача для JARVIS…  (/help)" : "Задача для JARVIS… (@агент — конкретному, !write — с правом правки, /status, /stop, /help)"}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(text, "text"); } }} />
+        {runtimes.length > 0 && (
+          <select className="rt" value={runtime} onChange={(e) => setRuntime(e.target.value)} aria-label="Исполнитель"
+            title={runtimes.find((r) => r.id === runtime)?.problems.join("; ") || "Исполнитель задачи"}>
+            {runtimes.map((r) => <option key={r.id} value={r.id}>{r.ready ? "● " : "○ "}{r.label}{r.paid ? " · $" : ""}{r.critical ? " · ⚠" : ""}</option>)}
+          </select>
+        )}
         {voiceSupported && (
           <>
             <select value={lang} onChange={(e) => { setLang(e.target.value); try { localStorage.setItem("voiceLang", e.target.value); } catch {} }} aria-label="Язык голоса">

@@ -39,6 +39,9 @@ def connect():
         _conn.row_factory = sqlite3.Row
         _conn.execute("PRAGMA journal_mode=WAL"); _conn.execute("PRAGMA foreign_keys=ON")
         _conn.executescript(SCHEMA)
+        cols = {r[1] for r in _conn.execute("PRAGMA table_info(tasks)")}
+        if "runtime" not in cols:
+            _conn.execute("ALTER TABLE tasks ADD COLUMN runtime TEXT")
     return _conn
 
 def reset_for_tests():

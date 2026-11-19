@@ -4,7 +4,7 @@ import type { Limits } from "../types";
 
 export type View = "city" | "cutaway" | "interior";
 export type VisualState = "idle" | "assigned" | "walking" | "working" | "reviewing" | "waiting" | "error" | "completed";
-export interface AgentVisual { state: VisualState; task_id: number | null; since: number | null; project_id: number | null }
+export interface AgentVisual { state: VisualState; task_id: number | null; since: number | null; project_id: number | null; runtime?: string | null }
 
 export interface CamGoal { target: [number, number, number]; dist: number; polar?: number; azimuth?: number }
 

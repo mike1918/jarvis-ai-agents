@@ -1,0 +1,3 @@
+camel-ai==0.2.90
+# camel-ai declares mcp>=1.3.0 without an upper bound; mcp 2.x removed mcp.server.FastMCP that camel imports
+mcp==1.30.0

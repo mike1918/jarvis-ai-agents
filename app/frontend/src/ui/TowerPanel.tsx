@@ -3,7 +3,7 @@ import { api, fmtUsd, withConfirm } from "../api";
 import type { Approval, Limits, Me, Task } from "../types";
 import { ago, Badge, useUi } from "./common";
 
-type Tab = "overview" | "tasks" | "approvals" | "limits" | "costs" | "audit" | "users";
+type Tab = "overview" | "tasks" | "approvals" | "limits" | "costs" | "integrations" | "audit" | "users";
 
 /** Central JARVIS tower: the general control panel. */
 export default function TowerPanel({ me, limits, tick, onClose, onOpenTask, refresh }:
@@ -12,7 +12,7 @@ export default function TowerPanel({ me, limits, tick, onClose, onOpenTask, refr
   const can = (p: string) => me.perms.includes(p);
   const tabs: [Tab, string, boolean][] = [
     ["overview", "Обзор", true], ["tasks", "Задачи", true], ["approvals", "Подтверждения", true], ["limits", "Лимиты", true],
-    ["costs", "Расходы и ошибки", true], ["audit", "Аудит", can("audit.read")], ["users", "Доступ", can("users.manage")],
+    ["costs", "Расходы и ошибки", true], ["integrations", "Интеграции", true], ["audit", "Аудит", can("audit.read")], ["users", "Доступ", can("users.manage")],
   ];
   return (
     <aside className="panel wide">
@@ -28,6 +28,7 @@ export default function TowerPanel({ me, limits, tick, onClose, onOpenTask, refr
       {tab === "costs" && <Costs tick={tick} />}
       {tab === "audit" && <Audit tick={tick} />}
       {tab === "users" && <Users />}
+      {tab === "integrations" && <Integrations tick={tick} />}
     </aside>
   );
 }
@@ -192,6 +193,40 @@ function Users() {
         <select value={role} onChange={(e) => setRole(e.target.value)}><option value="operator">operator</option><option value="viewer">viewer</option></select>
         <button className="primary small" disabled={!u || p.length < 10}>Добавить</button>
       </form>
+    </div>
+  );
+}
+
+const RT_INFO: Record<string, string> = {
+  claude: "Claude Code CLI с агентами библиотеки (платный API, лимит --max-budget-usd)",
+  dry: "без модели — для демонстрации и тестов (события помечаются как симуляция)",
+  ollama: "агент библиотеки отвечает локальной моделью Ollama (бесплатно, данные не уходят с компьютера)",
+  langgraph: "граф LangGraph: план → специалисты → проверка JARVIS",
+  camel: "CAMEL: диалог координатора JARVIS и специалиста",
+  browser_use: "browser-use управляет локальным Chromium (действует в интернете — нужно подтверждение)",
+  openhands: "OpenHands agent-server: кодовый агент выполняет команды в проекте (нужно подтверждение)",
+};
+
+function Integrations({ tick }: { tick: number }) {
+  const [r, setR] = useState<any>(null);
+  useEffect(() => { api("/runtimes").then(setR).catch(() => {}); }, [tick]);
+  if (!r) return null;
+  return (
+    <div>
+      <p className="small">LLM-сервер: <code>{r.llm_base_url}</code> {r.llm_local ? "(локальный — бесплатно)" : "(внешний — платно, расход не отслеживается)"} ·
+        исполнитель по умолчанию: <b>{r.default}</b>. Выбор — в командной строке или префиксом <code>#ollama</code>, <code>#langgraph</code>…</p>
+      <ul className="tasks">
+        {r.runtimes.map((x: any) => (
+          <li key={x.id}>
+            <div>
+              <span className={`badge ${x.ready ? "st-succeeded" : "st-failed"}`}>{x.ready ? "готов" : "не готов"}</span> <b>{x.label}</b>
+              {x.paid && <span className="tag warn">платно</span>}{x.critical && <span className="tag warn">подтверждение</span>}
+              <div className="small muted">{RT_INFO[x.id]}{x.llm ? ` · модель ${x.llm}` : ""}</div>
+              {x.problems.map((p: string) => <div key={p} className="small note">⚠️ {p}</div>)}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

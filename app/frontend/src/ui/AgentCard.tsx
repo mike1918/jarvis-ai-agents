@@ -32,6 +32,7 @@ export default function AgentCard({ tick, onAssign, onOpenTask, perms }: { tick:
       {!a ? <div className="muted">Загрузка…</div> : <>
         <p className="small">{a.description}</p>
         <table><tbody>
+          {live?.runtime && st !== "idle" && <tr><td className="muted">Исполнитель</td><td>{live.runtime}</td></tr>}
           <tr><td className="muted">Модель</td><td>{a.last_model ? `${a.last_model} (последний запуск)` : `${a.model} (из определения агента)`}</td></tr>
           <tr><td className="muted">Доступ</td><td>{a.access} · {a.tools.join(", ")}</td></tr>
           <tr><td className="muted">Текущая задача</td><td>{cur ? <a href="#" onClick={(e) => { e.preventDefault(); onOpenTask(cur.id); }}>#{cur.id} {cur.prompt.slice(0, 80)}</a> : "нет"}</td></tr>

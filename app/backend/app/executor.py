@@ -32,9 +32,15 @@ def build_cmd(agent, prompt, mode, budget):
             "--permission-mode", "acceptEdits" if mode == "write" else "default",
             "--agent", agent, "--", prompt]
 
+def runtime_of(task):
+    return task.get("runtime") or settings.executor
+
 async def run_task(task, project_path, run: Run, on_event):
-    if settings.executor == "dry":
+    rt = runtime_of(task)
+    if rt == "dry":
         return await _dry(task, run, on_event)
+    if rt != "claude":
+        return await _run_worker(rt, task, project_path, run, on_event)
     cmd = build_cmd(task["agent"], task["prompt"], task["mode"], task["max_budget_usd"])
     run.proc = await asyncio.create_subprocess_exec(*cmd, cwd=project_path, stdout=asyncio.subprocess.PIPE,
                                                     stderr=asyncio.subprocess.PIPE, start_new_session=True,
@@ -118,3 +124,45 @@ async def _dry(task, run, on_event):
         return RunResult(ok=False, error="DRY RUN: simulated failure")
     return RunResult(ok=True, result=f"[DRY RUN — no API call] agent '{task['agent']}' accepted: {task['prompt'][:200]}",
                      session_id=f"dry-{task['id']}", model="dry-run")
+
+
+async def _run_worker(rt, task, project_path, run: Run, on_event):
+    """Integration worker (integrations/<name>/worker.py in its own venv): JSON task on stdin, JSON-line events on stdout."""
+    from . import runtimes
+    if not runtimes.installed(rt):
+        return RunResult(ok=False, error=f"runtime '{rt}' is not installed (scripts/setup_integrations.sh {runtimes.RUNTIMES[rt].worker})")
+    payload = {"task_id": task["id"], "agent": task["agent"], "prompt": task["prompt"], "mode": task["mode"],
+               "budget_usd": task["max_budget_usd"], "project_path": project_path, "library_dir": str(settings.library_dir),
+               "settings": runtimes.task_settings()}
+    env = {**os.environ, "ANONYMIZED_TELEMETRY": "false", "BROWSER_USE_AUTO_LOGIN": "false", "PYTHONUNBUFFERED": "1",
+           "OPENHANDS_SUPPRESS_BANNER": "1"}
+    run.proc = await asyncio.create_subprocess_exec(*runtimes.worker_cmd(rt), cwd=project_path, stdin=asyncio.subprocess.PIPE,
+                                                    stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE,
+                                                    start_new_session=True, env=env, limit=16 * 1024 * 1024)
+    run.proc.stdin.write(json.dumps(payload).encode()); await run.proc.stdin.drain(); run.proc.stdin.close()
+    res = RunResult(ok=False)
+    async def read():
+        async for raw in run.proc.stdout:
+            try: ev = json.loads(raw)
+            except Exception: continue
+            t = ev.pop("type", None)
+            if t == "result":
+                res.ok = bool(ev.get("ok")); res.result = ev.get("result") or ""; res.error = ev.get("error")
+                res.cost_usd = float(ev.get("cost_usd") or 0); res.usage = ev.get("usage") or {}
+            elif t == "session":
+                res.session_id = ev.get("session_id"); res.model = ev.get("model"); await on_event("session", ev)
+            elif t == "delegate.start":
+                res.delegated.append(ev.get("agent")); await on_event("delegate.start", ev)
+            elif t in ("delegate.finish", "tool", "tool.done", "text"):
+                await on_event(t, ev)
+    async def drain_err():
+        return (await run.proc.stderr.read()).decode(errors="replace")[-3000:]
+    err_task = asyncio.create_task(drain_err())
+    try:
+        await asyncio.wait_for(asyncio.gather(read(), run.proc.wait()), timeout=settings.task_timeout_s)
+    except asyncio.TimeoutError:
+        run.cancel(); res.ok = False; res.error = f"timeout after {settings.task_timeout_s}s"
+    err = await err_task
+    if run.cancelled: res.ok = False; res.error = "cancelled"
+    if not res.ok and not res.error: res.error = err.strip()[-1500:] or f"worker exit code {run.proc.returncode}"
+    return res

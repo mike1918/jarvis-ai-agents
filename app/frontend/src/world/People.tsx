@@ -49,8 +49,8 @@ function Body({ shirt, pose, phase, typing }: { shirt: string; pose: "sit" | "st
 }
 
 /** Agent workplace character. Its pose/colour is a consequence of the backend state only. */
-export function AgentFigure({ name, seat, door, state, color, selected, onSelect }:
-  { name: string; seat: Seat; door: [number, number]; state: VisualState; color: string; selected: boolean; onSelect: (n: string) => void }) {
+export function AgentFigure({ name, seat, door, state, color, selected, onSelect, runtime }:
+  { name: string; seat: Seat; door: [number, number]; state: VisualState; color: string; selected: boolean; onSelect: (n: string) => void; runtime?: string | null }) {
   const g = useRef<THREE.Group>(null!), ring = useRef<THREE.MeshBasicMaterial>(null!), screen = useRef<THREE.MeshBasicMaterial>(null!);
   const [hover, setHover] = useState(false);
   const prev = useRef<VisualState>(state);
@@ -78,7 +78,7 @@ export function AgentFigure({ name, seat, door, state, color, selected, onSelect
     screen.current.color.set(state === "working" ? (Math.sin(sim.t * 9) > 0 ? "#7dd3fc" : "#38bdf8") : state === "error" ? "#ef4444" : state === "idle" ? "#1e293b" : STATE_COLOR[state]);
   });
   const vs: VisualState = walking ? "walking" : state;
-  const label = labelTexture([name, STATE_RU[vs]], STATE_COLOR[vs]);
+  const label = labelTexture([name, STATE_RU[vs] + (runtime && vs !== "idle" ? ` · ${runtime}` : "")], STATE_COLOR[vs]);
   const click = (e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); onSelect(name); };
   return (
     <group>

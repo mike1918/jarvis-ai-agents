@@ -61,10 +61,16 @@ def test_roles_and_approvals(client):
     acts = {a["action"] for a in client.get("/api/audit").json()}
     assert {"setup.owner_created", "login", "user.create", "task.create", "approval.approve"} <= acts
 
-def test_budget_limit(client):
-    assert client.put("/api/limits", json={"daily_budget_usd": 0.1}).status_code == 428
-    assert client.put("/api/limits", json={"daily_budget_usd": 0.1, "confirm_password": PW}).status_code == 200
-    r = client.post("/api/commands", json={"text": "сделай что-нибудь"}); assert r.status_code == 402 and "daily budget" in r.text
+def test_budget_limit():
+    import os
+    c, main = make_client("claude", os.path.join(os.path.dirname(__file__), "fake_claude.py"))
+    with c:
+        c.post("/api/setup", json={"username": OWNER[0], "password": PW}); c.post("/api/login", json={"username": OWNER[0], "password": PW})
+        assert c.put("/api/limits", json={"daily_budget_usd": 0.1}).status_code == 428
+        assert c.put("/api/limits", json={"daily_budget_usd": 0.1, "confirm_password": PW}).status_code == 200
+        r = c.post("/api/commands", json={"text": "сделай что-нибудь"}); assert r.status_code == 402 and "daily budget" in r.text
+        # free runtimes keep working when the paid budget is exhausted (only paid operations are blocked)
+        assert c.post("/api/commands", json={"text": "#dry сделай что-нибудь"}).status_code == 200
 
 def test_parallel_limit_and_killswitch(client, monkeypatch):
     monkeypatch.setenv("JARVIS_DRY_SECONDS", "3")
