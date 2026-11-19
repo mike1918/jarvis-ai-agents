@@ -51,9 +51,9 @@ def events(c, tid):
 def test_runtimes_endpoint(city):
     r = city.get("/api/runtimes").json()
     ids = {x["id"]: x for x in r["runtimes"]}
-    assert set(ids) == {"claude", "dry", "ollama", "langgraph", "camel", "browser_use", "openhands"}
+    assert set(ids) == {"claude", "dry", "ollama", "langgraph", "camel", "browser_use", "openhands", "n8n"}
     assert r["llm_local"] is True and ids["ollama"]["paid"] is False and ids["claude"]["paid"] is True
-    assert ids["browser_use"]["critical"] and ids["openhands"]["critical"]
+    assert ids["browser_use"]["critical"] and ids["openhands"]["critical"] and ids["n8n"]["critical"]
     assert city.post("/api/commands", json={"text": "#nosuch hi"}).status_code == 400
 
 
