@@ -1,0 +1,15 @@
+{
+ "_comment": "Per-agent metadata that is not part of Claude Code frontmatter. Read by tools/build_registry.py.",
+ "jarvis": {"note": "coordinator written for this library (not from the original collection); run as main agent: claude --agent jarvis", "origin": "jarvis"},
+ "agent-installer": {"auto_route": false, "disabled": true, "note": "disabled: downloads unreviewed agent files from VoltAgent/awesome-claude-code-subagents; kept in library/disabled/"},
+ "codebase-orchestrator": {"fix_applied": "removed 6 invalid tool names (agent names / plugin skills / MCP gateway)", "note": "subagents cannot launch subagents; orchestration is done by the main session"},
+ "ui-ux-tester": {"fix_applied": "removed invalid tool names 'chrome-mcp', 'computer-use'", "note": "no browser tool; use Playwright via Bash"},
+ "scientific-literature-researcher": {"note": "needs the 'bgpt' MCP server (mcp__bgpt__search_papers, external service bgpt.pro); without it only WebSearch/WebFetch"},
+ "agent-organizer": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "multi-agent-coordinator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "task-distributor": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "workflow-orchestrator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "error-coordinator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "it-ops-orchestrator": {"note": "coordinator role: produces a plan; the main session launches the workers"},
+ "context-manager": {"note": "coordinator role: produces a plan; the main session launches the workers"}
+}

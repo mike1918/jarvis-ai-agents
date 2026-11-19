@@ -1,0 +1,16 @@
+{
+  "max_concurrent_subagents": 3,
+  "max_subagent_launches_per_session": 25,
+  "max_subagent_tokens_per_session": 2000000,
+  "max_handoff_prompt_chars": 20000,
+  "block_agents": [
+    "agent-installer"
+  ],
+  "bridge": {
+    "max_parallel_runs": 2,
+    "budget_usd_per_run": 0.5,
+    "daily_budget_usd": 5.0,
+    "timeout_seconds": 900,
+    "permission_mode": "default"
+  }
+}

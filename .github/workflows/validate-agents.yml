@@ -1,0 +1,22 @@
+name: validate-agents
+on:
+  pull_request:
+    paths: [".claude/**", "library/**", "tools/**"]
+  push:
+    branches: [main]
+    paths: [".claude/**", "library/**", "tools/**"]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml==6.0.2
+      - run: python3 tools/agentlib.py validate
+      - name: registry is up to date
+        run: |
+          python3 tools/agentlib.py build
+          git diff --exit-code -- .claude/jarvis/registry.json .claude/jarvis/REGISTRY.md || { echo "Run: python3 tools/agentlib.py build"; exit 1; }

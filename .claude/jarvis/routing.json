@@ -1,0 +1,233 @@
+{
+ "routes": [
+  {
+   "task_type": "bugfix",
+   "pattern": "\\b(bug|error|exception|crash|traceback|stack ?trace|fails?|broken)\\b|ошибк|баг|падает|сломал|исключени|не работает",
+   "agents": [
+    "debugger",
+    "error-detective"
+   ]
+  },
+  {
+   "task_type": "code-review",
+   "pattern": "\\b(review|pr|pull request|refactor)\\b|ревью|проверь код|рефактор",
+   "agents": [
+    "code-reviewer",
+    "architect-reviewer",
+    "surgeon-reviewer"
+   ]
+  },
+  {
+   "task_type": "security",
+   "pattern": "\\b(security|vulnerab|cve|xss|sqli|auth|owasp|pentest)\\w*|безопасн|уязвим|пентест",
+   "agents": [
+    "security-auditor",
+    "security-engineer",
+    "penetration-tester"
+   ]
+  },
+  {
+   "task_type": "tests",
+   "pattern": "\\b(tests?|unit|e2e|coverage|qa|playwright|jest|pytest)\\b|тест|покрыти",
+   "agents": [
+    "test-automator",
+    "qa-expert"
+   ]
+  },
+  {
+   "task_type": "performance",
+   "pattern": "\\b(perf|performance|slow|latency|optimi[sz]e|memory leak)\\w*|производительн|тормоз|медленн|оптимиз",
+   "agents": [
+    "performance-engineer",
+    "database-optimizer"
+   ]
+  },
+  {
+   "task_type": "frontend",
+   "pattern": "\\b(ui|css|html|react|vue|angular|next\\.?js|frontend|component)\\b|фронт|интерфейс|вёрстк|верстк",
+   "agents": [
+    "frontend-developer",
+    "react-specialist",
+    "vue-expert",
+    "nextjs-developer",
+    "angular-architect",
+    "ui-designer"
+   ]
+  },
+  {
+   "task_type": "backend/api",
+   "pattern": "\\b(api|rest|graphql|endpoint|backend|server|webhook|websocket)\\b|бэкенд|бекенд|сервер",
+   "agents": [
+    "backend-developer",
+    "api-designer",
+    "graphql-architect",
+    "webhook-engineer",
+    "websocket-engineer"
+   ]
+  },
+  {
+   "task_type": "database",
+   "pattern": "\\b(sql|postgres|mysql|database|db|query|index|migration)\\b|баз[аеуы] данных|запрос|миграц",
+   "agents": [
+    "sql-pro",
+    "postgres-pro",
+    "database-administrator",
+    "database-optimizer"
+   ]
+  },
+  {
+   "task_type": "devops",
+   "pattern": "\\b(docker|kubernetes|k8s|ci|cd|deploy|terraform|helm|nginx|pipeline)\\b|деплой|развёртыв|развертыв|инфраструкт",
+   "agents": [
+    "devops-engineer",
+    "docker-expert",
+    "kubernetes-specialist",
+    "deployment-engineer",
+    "terraform-engineer"
+   ]
+  },
+  {
+   "task_type": "incident",
+   "pattern": "\\b(incident|outage|downtime|prod(uction)? (is )?down)\\b|инцидент|упал прод|авари",
+   "agents": [
+    "incident-responder",
+    "devops-incident-responder",
+    "sre-engineer"
+   ]
+  },
+  {
+   "task_type": "python",
+   "pattern": "\\bpython|django|fastapi|flask|pip\\b|питон",
+   "agents": [
+    "python-pro",
+    "django-developer",
+    "fastapi-developer"
+   ]
+  },
+  {
+   "task_type": "js/ts",
+   "pattern": "\\b(typescript|javascript|node(\\.?js)?|npm|deno|bun)\\b",
+   "agents": [
+    "typescript-pro",
+    "javascript-pro",
+    "node-specialist"
+   ]
+  },
+  {
+   "task_type": "mobile",
+   "pattern": "\\b(ios|android|swift|kotlin|flutter|react native|expo|mobile)\\b|мобильн",
+   "agents": [
+    "mobile-developer",
+    "swift-expert",
+    "kotlin-specialist",
+    "flutter-expert",
+    "expo-react-native-expert"
+   ]
+  },
+  {
+   "task_type": "ml/data",
+   "pattern": "\\b(ml|machine learning|model training|dataset|pandas|etl|llm|rag|embedding)\\b|нейросет|машинн|датасет|данны",
+   "agents": [
+    "machine-learning-engineer",
+    "data-scientist",
+    "data-engineer",
+    "mlops-engineer"
+   ]
+  },
+  {
+   "task_type": "docs",
+   "pattern": "\\b(docs?|documentation|readme|tutorial)\\b|документац|описани|инструкци",
+   "agents": [
+    "technical-writer"
+   ]
+  },
+  {
+   "task_type": "research",
+   "pattern": "\\b(research|compare|market|competitor|trend)\\w*|исследу|исследова|сравни|рынок|конкурент|тренд",
+   "agents": [
+    "research-analyst",
+    "search-specialist",
+    "market-researcher",
+    "competitive-analyst",
+    "trend-analyst"
+   ]
+  },
+  {
+   "task_type": "product",
+   "pattern": "\\b(product|roadmap|requirements?|user stor|backlog|mvp)\\w*|продукт|требовани|бэклог|роадмап",
+   "agents": [
+    "product-manager",
+    "business-analyst",
+    "backlog-grooming",
+    "project-idea-validator"
+   ]
+  },
+  {
+   "task_type": "windows",
+   "pattern": "\\b(powershell|windows|active directory|\\.net framework)\\b",
+   "agents": [
+    "powershell-7-expert",
+    "powershell-5.1-expert",
+    "windows-infra-admin",
+    "dotnet-framework-4.8-expert"
+   ]
+  },
+  {
+   "task_type": "cpp/rust/go",
+   "pattern": "\\b(c\\+\\+|cpp|rust|cargo|golang|go module)\\b",
+   "agents": [
+    "cpp-pro",
+    "rust-engineer",
+    "golang-pro"
+   ]
+  },
+  {
+   "task_type": "legal",
+   "pattern": "\\b(license|gdpr|ccpa|legal|compliance|privacy)\\b|лицензи|юрид|персональн",
+   "agents": [
+    "license-engineer",
+    "gdpr-ccpa-compliance",
+    "legal-advisor",
+    "compliance-auditor"
+   ]
+  },
+  {
+   "task_type": "design",
+   "pattern": "\\b(design|figma|mockup|wireframe|ux|layout|prototype)\\b|дизайн|макет|прототип|юзабилити",
+   "agents": [
+    "ui-designer",
+    "design-bridge",
+    "ux-researcher",
+    "accessibility-tester"
+   ]
+  },
+  {
+   "task_type": "analytics",
+   "pattern": "\\b(analytics|metrics?|dashboard|retention|cohort|a/b|ab test|kpi|funnel)\\b|аналитик|метрик|ретеншн|воронк|когорт",
+   "agents": [
+    "data-scientist",
+    "data-researcher",
+    "ab-test-analysis",
+    "cohort-analysis"
+   ]
+  },
+  {
+   "task_type": "automation",
+   "pattern": "\\b(automat\\w*|script|cron|bot|workflow|scheduled?)\\b|автоматиз|скрипт|бот|по расписанию",
+   "agents": [
+    "devops-engineer",
+    "python-pro",
+    "powershell-7-expert",
+    "deployment-engineer"
+   ]
+  },
+  {
+   "task_type": "multi-domain",
+   "pattern": "\\b(jarvis|end[- ]to[- ]end|full project)\\b|джарвис|под ключ|весь проект|целиком",
+   "agents": [
+    "jarvis"
+   ]
+  }
+ ],
+ "fallback": "general-purpose"
+}

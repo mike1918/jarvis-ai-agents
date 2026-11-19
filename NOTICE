@@ -1,0 +1,19 @@
+JARVIS AI Agents library
+
+The 126 agent definitions in .claude/agents/ (except 00-jarvis/jarvis.md) and library/disabled/ originate from
+VoltAgent/awesome-claude-code-subagents, Copyright (c) 2025 VoltAgent, licensed under the MIT License (see LICENSE).
+
+Modifications in this repository:
+- files reorganised into .claude/agents/<category>/ ;
+- codebase-orchestrator.md, ui-ux-tester.md: invalid entries removed from the `tools:` line;
+- agent-installer.md moved to library/disabled/ (not loaded by Claude Code).
+
+Added in this repository (same MIT terms): .claude/agents/00-jarvis/jarvis.md, .claude/jarvis/*, .claude/hooks/*,
+tools/*, docs/*, .github/workflows/validate-agents.yml.
+
+Upstream references inside individual agents (links in the prompt text, not executed):
+- ux-microcopy-reviewer: Clagoss/claude-code-para-disenadores (states MIT)
+- ai-writing-auditor: conorbronsdon/avoid-ai-writing (states MIT)
+- ponder-auditor: Quinnod345/ponder (license not stated in the agent file - verify before commercial use)
+- surgeon-reviewer: LucianFord/agent-pack (license not stated in the agent file - verify before commercial use)
+- telegram-ads-analyst: links to articles on tgscope.io; scientific-literature-researcher: optional MCP server bgpt.pro

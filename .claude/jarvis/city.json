@@ -1,0 +1,18 @@
+{
+ "_comment": "JARVIS AI CITY: districts in the style of Ashdod. Each district = one category folder in .claude/agents/. planned_capacity is a growth target toward 300 agents, NOT existing agents. tools/build_registry.py reports actual counts.",
+ "name": "JARVIS AI CITY",
+ "target_total_agents": 300,
+ "districts": [
+  {"folder": "00-jarvis",                "district": "Рова Алеф — Ратуша JARVIS (центр управления)", "planned_capacity": 3},
+  {"folder": "01-core-development",      "district": "Рова Бет — квартал разработчиков",              "planned_capacity": 35},
+  {"folder": "02-language-specialists",  "district": "Рова Гимель — квартал языков",                  "planned_capacity": 50},
+  {"folder": "03-infrastructure",        "district": "Порт Ашдода — инфраструктура и доставка",      "planned_capacity": 30},
+  {"folder": "04-quality-security",      "district": "Рова Далет — контроль качества и безопасность", "planned_capacity": 35},
+  {"folder": "05-data-ai",               "district": "Рова Хей — научный городок данных и ИИ",       "planned_capacity": 25},
+  {"folder": "06-developer-experience",  "district": "Рова Вав — мастерские инструментов",           "planned_capacity": 15},
+  {"folder": "07-specialized-domains",   "district": "Промзона — специализированные отрасли",        "planned_capacity": 30},
+  {"folder": "08-business-product",      "district": "Сити — деловой центр",                          "planned_capacity": 35},
+  {"folder": "09-meta-orchestration",    "district": "Рова Зайн — диспетчерская",                     "planned_capacity": 15},
+  {"folder": "10-research-analysis",     "district": "Рова Хет — библиотека и аналитика",            "planned_capacity": 27}
+ ]
+}
