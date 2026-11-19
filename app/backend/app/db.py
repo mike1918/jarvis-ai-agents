@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS approvals(id INTEGER PRIMARY KEY, ts REAL NOT NULL, k
 CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY, ts REAL NOT NULL, user_id INTEGER, username TEXT,
   action TEXT NOT NULL, target TEXT, detail TEXT, ip TEXT, ok INTEGER DEFAULT 1);
 CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS api_tokens(id INTEGER PRIMARY KEY, name TEXT NOT NULL, token_hash TEXT UNIQUE NOT NULL,
+  role TEXT NOT NULL CHECK(role IN ('operator','viewer')), created_by INTEGER, created_at REAL NOT NULL, last_used REAL, revoked INTEGER DEFAULT 0);
 """
 _lock = threading.RLock()
 _conn = None

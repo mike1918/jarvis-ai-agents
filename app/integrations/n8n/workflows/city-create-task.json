@@ -1,0 +1,34 @@
+{
+  "id": "JarvisCityCreate1",
+  "name": "n8n → JARVIS city: create a task",
+  "active": false,
+  "nodes": [
+    {
+      "id": "9a1d4b5f-1b62-4054-8b7e-1d2e0b000001", "name": "Trigger", "type": "n8n-nodes-base.webhook", "typeVersion": 2,
+      "position": [0, 0], "webhookId": "6c2e3a0f-7c4b-4d4f-9b21-3b0000000002",
+      "parameters": { "httpMethod": "POST", "path": "city-create-task", "responseMode": "responseNode", "options": {} }
+    },
+    {
+      "id": "9a1d4b5f-1b62-4054-8b7e-1d2e0b000002", "name": "Create city task", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.2,
+      "position": [240, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.JARVIS_CITY_URL }}/api/commands",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Authorization", "value": "=Bearer {{ $env.JARVIS_CITY_TOKEN }}" } ] },
+        "sendBody": true, "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.body.text }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "9a1d4b5f-1b62-4054-8b7e-1d2e0b000003", "name": "Respond", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.1,
+      "position": [480, 0], "parameters": { "respondWith": "firstIncomingItem", "options": {} }
+    }
+  ],
+  "connections": {
+    "Trigger": { "main": [[{ "node": "Create city task", "type": "main", "index": 0 }]] },
+    "Create city task": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

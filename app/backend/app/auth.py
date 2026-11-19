@@ -63,9 +63,25 @@ def _token(request: Request):
     if h.lower().startswith("bearer "): t = h[7:]
     return t
 
+TOKEN_PREFIX = "jat_"
+
+def create_api_token(owner, name, role):
+    """Long-lived token for services such as n8n. Shown once; only its hash is stored."""
+    if role not in ("operator", "viewer"): raise ValueError("role must be operator or viewer")
+    token = TOKEN_PREFIX + secrets.token_urlsafe(32)
+    tid = db.ex("INSERT INTO api_tokens(name,token_hash,role,created_by,created_at) VALUES(?,?,?,?,?)",
+                (name, hashlib.sha256(token.encode()).hexdigest(), role, owner["id"], time.time()))
+    return tid, token
+
 def current_user(request: Request):
     t = _token(request)
     if not t: raise HTTPException(401, "not logged in")
+    if t.startswith(TOKEN_PREFIX):
+        r = db.q1("SELECT id,name,role FROM api_tokens WHERE token_hash=? AND revoked=0", (hashlib.sha256(t.encode()).hexdigest(),))
+        if not r: raise HTTPException(401, "invalid or revoked API token")
+        db.ex("UPDATE api_tokens SET last_used=? WHERE id=?", (time.time(), r["id"]))
+        # service principal: negative id so it can never collide with a human user
+        return {"id": -r["id"], "username": f"token:{r['name']}", "role": r["role"], "perms": sorted(PERMS[r["role"]])}
     s = db.q1("SELECT u.id,u.username,u.role FROM sessions s JOIN users u ON u.id=s.user_id "
               "WHERE s.token_hash=? AND s.expires_at>? AND u.disabled=0", (hashlib.sha256(t.encode()).hexdigest(), time.time()))
     if not s: raise HTTPException(401, "session expired")

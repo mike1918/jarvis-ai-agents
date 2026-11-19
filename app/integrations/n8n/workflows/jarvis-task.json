@@ -1,0 +1,26 @@
+{
+  "id": "JarvisCityTask01",
+  "name": "JARVIS city → n8n: task webhook",
+  "active": false,
+  "nodes": [
+    {
+      "id": "8f0c3a4e-0a51-4f43-9a6d-0c1d0a000001", "name": "City task", "type": "n8n-nodes-base.webhook", "typeVersion": 2,
+      "position": [0, 0], "webhookId": "5b1d2f9e-6b3a-4c3e-8a10-2a0000000001",
+      "parameters": { "httpMethod": "POST", "path": "jarvis-task", "responseMode": "responseNode", "options": {} }
+    },
+    {
+      "id": "8f0c3a4e-0a51-4f43-9a6d-0c1d0a000002", "name": "Build answer", "type": "n8n-nodes-base.code", "typeVersion": 2,
+      "position": [240, 0],
+      "parameters": { "jsCode": "const b = $input.first().json.body || {};\nreturn [{ json: { result: `n8n workflow received task #${b.task_id} for ${b.agent} (project ${b.project}): ${b.prompt}`, received_at: new Date().toISOString() } }];" }
+    },
+    {
+      "id": "8f0c3a4e-0a51-4f43-9a6d-0c1d0a000003", "name": "Answer city", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.1,
+      "position": [480, 0], "parameters": { "respondWith": "firstIncomingItem", "options": {} }
+    }
+  ],
+  "connections": {
+    "City task": { "main": [[{ "node": "Build answer", "type": "main", "index": 0 }]] },
+    "Build answer": { "main": [[{ "node": "Answer city", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

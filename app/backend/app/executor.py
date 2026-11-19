@@ -43,6 +43,8 @@ async def run_task(task, project_path, run: Run, on_event):
     rt = runtime_of(task)
     if rt == "dry":
         return await _dry(task, run, on_event)
+    if rt == "n8n":
+        return await _run_n8n(task, project_path, run, on_event)
     if rt != "claude":
         return await _run_worker(rt, task, project_path, run, on_event)
     from . import services
@@ -177,3 +179,34 @@ async def _run_worker(rt, task, project_path, run: Run, on_event):
     if run.cancelled: res.ok = False; res.error = "cancelled"
     if not res.ok and not res.error: res.error = err.strip()[-1500:] or f"worker exit code {run.proc.returncode}"
     return res
+
+
+async def _run_n8n(task, project_path, run: Run, on_event):
+    """n8n runtime: POST the task to an n8n workflow webhook (Webhook node → … → Respond to Webhook) and use its answer.
+    The webhook path comes from JARVIS_N8N_WEBHOOK; a prompt starting with 'webhook:<path> ' selects another workflow."""
+    import httpx
+    from . import runtimes
+    s = runtimes.task_settings()
+    prompt, path = task["prompt"], s["n8n_webhook"]
+    if prompt.startswith("webhook:"):
+        path, _, prompt = prompt[8:].partition(" ")
+    url = f"{s['n8n_url'].rstrip('/')}/webhook/{path.strip('/')}"
+    await on_event("session", {"session_id": f"n8n-{task['id']}", "model": f"n8n:{path}"})
+    await on_event("tool", {"name": "n8n.webhook", "id": f"n8n-{task['id']}", "file": None})
+    try:
+        async with httpx.AsyncClient(timeout=settings.task_timeout_s) as c:
+            r = await c.post(url, json={"task_id": task["id"], "agent": task["agent"], "prompt": prompt, "mode": task["mode"],
+                                        "project": os.path.basename(project_path), "context": task.get("context") or ""})
+    except httpx.HTTPError as e:
+        await on_event("tool.done", {"name": "n8n.webhook", "id": f"n8n-{task['id']}", "is_error": True})
+        return RunResult(ok=False, error=f"n8n webhook {url} unreachable: {type(e).__name__}")
+    ok = r.status_code < 400
+    await on_event("tool.done", {"name": "n8n.webhook", "id": f"n8n-{task['id']}", "is_error": not ok})
+    try:
+        body = r.json(); text = body.get("result") if isinstance(body, dict) else None
+        text = text if text is not None else json.dumps(body, ensure_ascii=False)
+    except Exception:  # noqa: BLE001
+        text = r.text
+    if ok: await on_event("text", {"text": str(text)[:400]})
+    return RunResult(ok=ok, result=str(text)[:20000], session_id=f"n8n-{task['id']}", model=f"n8n:{path}",
+                     error=None if ok else f"n8n answered HTTP {r.status_code}: {r.text[:300]}")

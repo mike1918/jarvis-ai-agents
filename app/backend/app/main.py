@@ -92,6 +92,27 @@ def add_user(n: NewUser, request: Request, user=Depends(need("users.manage"))):
     except Exception: raise HTTPException(409, "user exists")
     db.audit(user, "user.create", n.username, {"role": n.role}, ip(request)); return {"id": uid}
 
+class NewToken(BaseModel):
+    name: str = Field(min_length=2, max_length=40, pattern=r"^[a-zA-Z0-9_.-]+$")
+    role: str = Field(default="operator", pattern=r"^(operator|viewer)$")
+    confirm_password: str | None = None
+
+@app.post("/api/tokens")
+def new_token(n: NewToken, request: Request, user=Depends(need("users.manage"))):
+    auth.confirm_password(user, n.confirm_password)
+    tid, token = auth.create_api_token(user, n.name, n.role)
+    db.audit(user, "token.create", n.name, {"role": n.role, "id": tid}, ip(request))
+    return {"id": tid, "name": n.name, "role": n.role, "token": token, "note": "shown once; store it in the service's secret store"}
+
+@app.get("/api/tokens")
+def list_tokens(user=Depends(need("users.manage"))):
+    return db.q("SELECT id,name,role,created_at,last_used,revoked FROM api_tokens ORDER BY id")
+
+@app.delete("/api/tokens/{tid}")
+def revoke_token(tid: int, request: Request, user=Depends(need("users.manage"))):
+    db.ex("UPDATE api_tokens SET revoked=1 WHERE id=?", (tid,)); db.audit(user, "token.revoke", f"token:{tid}", ip=ip(request))
+    return {"ok": True}
+
 @app.get("/api/users")
 def users(user=Depends(need("users.manage"))):
     return db.q("SELECT id,username,role,disabled,created_at FROM users ORDER BY id")

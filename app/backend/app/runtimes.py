@@ -39,6 +39,7 @@ RUNTIMES = {r.id: r for r in [
     Runtime("camel", "CAMEL (диалог агентов)", "camel"),
     Runtime("browser_use", "browser-use (браузер)", "browser_use", critical=True),
     Runtime("openhands", "OpenHands (кодовый агент)", "openhands", critical=True, service="openhands"),
+    Runtime("n8n", "n8n (автоматизации)", None, critical=True, uses_llm_endpoint=False, service="n8n"),
 ]}
 
 
@@ -69,6 +70,8 @@ def task_settings() -> dict:
         "llm_model": os.environ.get("JARVIS_LLM_MODEL", "qwen2.5:7b"),
         "llm_api_key_env": os.environ.get("JARVIS_LLM_API_KEY_ENV", ""),          # name of the env var, not the key
         "openhands_url": os.environ.get("JARVIS_OPENHANDS_URL", "http://127.0.0.1:8100"),
+        "n8n_url": os.environ.get("JARVIS_N8N_URL", "http://127.0.0.1:5678"),
+        "n8n_webhook": os.environ.get("JARVIS_N8N_WEBHOOK", "jarvis-task"),
         "openhands_api_key_env": os.environ.get("JARVIS_OPENHANDS_API_KEY_ENV", ""),
         "chromium_path": os.environ.get("JARVIS_CHROMIUM_PATH", ""),
         "max_turns": int(os.environ.get("JARVIS_MAX_TURNS", "2")),
@@ -96,11 +99,13 @@ def status() -> list[dict]:
     s = task_settings()
     llm_ok, llm_msg = _probe(f"{s['llm_base_url']}/models")
     oh_ok, oh_msg = _probe(f"{s['openhands_url']}/alive")
+    n8n_ok, n8n_msg = _probe(f"{s['n8n_url']}/healthz")
     out = []
     for r in RUNTIMES.values():
         ready, why = installed(r.id), []
         if not ready: why.append(f"не установлен: scripts/setup_integrations.sh {r.worker}")
         if r.uses_llm_endpoint and not llm_ok: why.append(f"LLM-сервер {s['llm_base_url']} недоступен ({llm_msg})")
+        if r.service == "n8n" and not n8n_ok: why.append(f"n8n {s['n8n_url']} недоступен ({n8n_msg}): scripts/run_n8n.sh")
         if r.service == "openhands" and not oh_ok: why.append(f"OpenHands agent-server {s['openhands_url']} недоступен ({oh_msg})")
         if r.id == "claude" and settings.executor == "dry": why.append("сервер запущен в режиме DRY RUN")
         out.append({"id": r.id, "label": r.label, "installed": ready, "ready": ready and not why, "problems": why,
