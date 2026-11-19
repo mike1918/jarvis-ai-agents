@@ -48,6 +48,16 @@ def plan(req):
     return {"text": f"[fake-llm] {who.group(1) if who else 'agent'} answers: {str(user)[:120]} — DONE"}
 
 
+def bow_vector(text, dims=128):
+    """Deterministic bag-of-words embedding: texts sharing words get close vectors (good enough to test retrieval)."""
+    import hashlib, math
+    v = [0.0] * dims
+    for w in re.findall(r"\w{3,}", str(text).lower()):
+        v[int(hashlib.md5(w.encode()).hexdigest(), 16) % dims] += 1.0
+    n = math.sqrt(sum(x * x for x in v)) or 1.0
+    return [x / n for x in v]
+
+
 class H(BaseHTTPRequestHandler):
     def log_message(self, *a): pass
 
@@ -66,6 +76,10 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
         req = json.loads(self.rfile.read(n) or b"{}")
+        if self.path.rstrip("/").endswith("/embeddings"):
+            inp = req.get("input"); inp = [inp] if isinstance(inp, str) else inp
+            return self._json(200, {"object": "list", "model": req.get("model"), "usage": {"prompt_tokens": 1, "total_tokens": 1},
+                                    "data": [{"object": "embedding", "index": i, "embedding": bow_vector(s)} for i, s in enumerate(inp)]})
         if not self.path.rstrip("/").endswith("/chat/completions"):
             return self._json(404, {"error": f"unsupported {self.path}"})
         p, cid, now = plan(req), f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())

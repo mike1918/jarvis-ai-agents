@@ -4,8 +4,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 OWNER = ("owner", "correct-horse-battery")
 
-def make_client(executor="dry", claude_bin=None):
+def make_client(executor="dry", claude_bin=None, memory=False):
     tmp = tempfile.mkdtemp()
+    os.environ["JARVIS_MEMORY"] = "auto" if memory else "off"     # memory adds ~2 s per task; only memory tests enable it
     os.environ.update(JARVIS_DATA_DIR=f"{tmp}/data", JARVIS_WORKSPACE_DIR=f"{tmp}/ws", JARVIS_EXECUTOR=executor, JARVIS_DRY_SECONDS="0.5")
     if claude_bin: os.environ["JARVIS_CLAUDE_BIN"] = claude_bin
     for m in [m for m in list(sys.modules) if m.startswith("app")]: del sys.modules[m]

@@ -5,7 +5,7 @@ The agent's own system prompt comes from its .md definition in the library. Read
 """
 import os, sys, time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "common"))
-from protocol import agent_definition, emit, finish, llm_settings, run   # noqa: E402
+from protocol import task_prompt, agent_definition, emit, finish, llm_settings, run   # noqa: E402
 import httpx                                                              # noqa: E402
 
 def main(task):
@@ -16,7 +16,7 @@ def main(task):
     r = httpx.post(f"{base}/chat/completions", timeout=600, headers={"Authorization": f"Bearer {key}"},
                    json={"model": model, "stream": False, "messages": [
                        {"role": "system", "content": a["system_prompt"][:12000]},
-                       {"role": "user", "content": task["prompt"]}]})
+                       {"role": "user", "content": task_prompt(task)}]})
     if r.status_code != 200:
         emit("tool.done", name="llm.chat", id="llm-1", is_error=True)
         return finish(False, error=f"LLM endpoint {base} answered HTTP {r.status_code}: {r.text[:300]}")

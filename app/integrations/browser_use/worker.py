@@ -5,7 +5,7 @@ Telemetry is disabled (ANONYMIZED_TELEMETRY=false) and cloud login is off (BROWS
 """
 import asyncio, glob, os, sys, time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "common"))
-from protocol import agent_definition, emit, finish, llm_settings, run   # noqa: E402
+from protocol import task_prompt, agent_definition, emit, finish, llm_settings, run   # noqa: E402
 
 os.environ.setdefault("ANONYMIZED_TELEMETRY", "false")
 os.environ.setdefault("BROWSER_USE_AUTO_LOGIN", "false")
@@ -26,7 +26,7 @@ async def amain(task):
     a = agent_definition(task["library_dir"], task["agent"])
     emit("session", session_id=f"browser-use-{task['task_id']}-{int(time.time())}", model=f"browser-use+{model}")
     browser = Browser(local=True, headless=True, executable_path=chromium_path(task))
-    agent = Agent(task["prompt"], llm=ChatOpenAI(model=model, base_url=base, api_key=key), browser=browser,
+    agent = Agent(task_prompt(task), llm=ChatOpenAI(model=model, base_url=base, api_key=key), browser=browser,
                   extend_system_message=f"You work as the library agent '{a['name']}': {a['description']}",
                   judge=False, workspace=task.get("project_path"))
     emit("tool", name="browser", id="browser-1")

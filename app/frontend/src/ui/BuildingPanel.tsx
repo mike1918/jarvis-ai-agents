@@ -37,8 +37,8 @@ export default function BuildingPanel({ folders }: { folders: Record<string, str
       {rooms.length > 0 && (
         <div className="rooms">
           {rooms.map((r) => (
-            <button key={r.id} className={room === r.id ? "on" : ""} onClick={() => { enterRoom(r.id); if (r.kind === "owner") showTower(true); }}>
-              {r.name}{r.kind === "owner" ? " — панель управления" : ""}
+            <button key={r.id} className={room === r.id ? "on" : ""} onClick={() => { enterRoom(r.id); if (r.kind === "owner") showTower(true); if (r.kind === "archive") showTower(true, "memory"); }}>
+              {r.name}{r.kind === "owner" ? " — панель управления" : r.kind === "archive" ? " — память (Chroma)" : ""}
             </button>
           ))}
         </div>

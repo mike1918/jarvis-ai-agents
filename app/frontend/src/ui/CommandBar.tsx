@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { api, ApiError, withConfirm } from "../api";
-import { listenOnce, speak, VOICE_LANGS, voiceSupported } from "../voice/voice";
+import { listenOnce, refreshVoiceServices, speak, VOICE_LANGS, voiceEngine, voiceSupported } from "../voice/voice";
 import { useUi } from "./common";
 
 /** Text commands (and the optional voice module) for assigning tasks to agents. */
@@ -13,7 +13,9 @@ export default function CommandBar({ prefill, onResult, canCommand }: { prefill:
   const [hints, setHints] = useState<[string, string[]][]>([]);
   const [runtimes, setRuntimes] = useState<{ id: string; label: string; ready: boolean; problems: string[]; critical: boolean; paid: boolean }[]>([]);
   const [runtime, setRuntime] = useState("");
-  useEffect(() => { api("/runtimes").then((r) => { setRuntimes(r.runtimes); setRuntime((x) => x || r.default); }).catch(() => {}); }, []);
+  const [engine, setEngine] = useState("");
+  useEffect(() => { api("/runtimes").then((r) => { setRuntimes(r.runtimes); setRuntime((x) => x || r.default); }).catch(() => {});
+    refreshVoiceServices().then(() => setEngine(voiceEngine())); }, []);
   const stopRef = useRef<() => void>(() => {});
   const inputRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => { if (prefill) { setText(prefill); inputRef.current?.focus(); } }, [prefill]);
@@ -77,7 +79,7 @@ export default function CommandBar({ prefill, onResult, canCommand }: { prefill:
             <select value={lang} onChange={(e) => { setLang(e.target.value); try { localStorage.setItem("voiceLang", e.target.value); } catch {} }} aria-label="Язык голоса">
               {VOICE_LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
-            <button type="button" className={`mic ${listening ? "on" : ""}`} onClick={voice} title="Голосовая команда">{listening ? "■" : "🎤"}</button>
+            <button type="button" className={`mic ${listening ? "on" : ""}`} onClick={voice} title={`Голосовая команда (распознавание: ${engine})`}>{listening ? "■" : "🎤"}</button>
           </>
         )}
         <button className="primary" disabled={busy || !text.trim()}>➤</button>

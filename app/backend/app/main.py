@@ -1,12 +1,13 @@
 """JARVIS AI CITY — ASHDOD 4D backend (FastAPI)."""
 import asyncio, json, re, subprocess, time
+import httpx
 from contextlib import asynccontextmanager
 from pathlib import Path
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from . import auth, db, events, eventlog, library, runtimes
+from . import auth, db, events, eventlog, library, runtimes, services
 from .auth import need, current_user
 from .config import settings
 from .engine import engine
@@ -154,6 +155,45 @@ def event_log(after_id: int = 0, limit: int = 200, task_id: int | None = None, a
 def runtimes_status(user=Depends(need("read"))):
     return {"default": settings.executor, "runtimes": runtimes.status(),
             "llm_base_url": runtimes.llm_base_url(), "llm_local": runtimes.llm_is_local()}
+
+@app.get("/api/services")
+def services_status(user=Depends(need("read"))):
+    return services.status()
+
+@app.get("/api/memory/search")
+def memory_search(q: str, n: int = 5, user=Depends(need("read"))):
+    if not services.memory_installed(): raise HTTPException(503, "memory is not installed: scripts/setup_services.sh chroma")
+    r = services.memory_search(q, min(max(n, 1), 20))
+    if not r.get("ok"): raise HTTPException(502, f"memory error: {r.get('error')}")
+    return r["results"]
+
+@app.post("/api/voice/transcribe")
+async def voice_transcribe(request: Request, lang: str = "auto", user=Depends(need("voice"))):
+    """Raw audio body (audio/webm, audio/ogg, audio/wav, audio/mp4) → text via the local whisper.cpp server."""
+    audio = await request.body()
+    if not audio or len(audio) > 25 * 1024 * 1024: raise HTTPException(400, "audio body missing or larger than 25 MB")
+    ext = {"audio/webm": "webm", "audio/ogg": "ogg", "audio/wav": "wav", "audio/x-wav": "wav", "audio/mp4": "m4a", "audio/mpeg": "mp3"}.get(
+        (request.headers.get("content-type") or "").split(";")[0], "webm")
+    try:
+        r = await asyncio.to_thread(services.transcribe, audio, f"speech.{ext}", lang)
+    except httpx.HTTPError as e:
+        raise HTTPException(503, f"whisper.cpp server {services.whisper_url()} unavailable: {type(e).__name__}")
+    db.audit(user, "voice.transcribe", detail={"bytes": len(audio), "chars": len(r["text"])}, ip=ip(request))
+    return r
+
+class Speak(BaseModel):
+    text: str = Field(min_length=1, max_length=1000)
+    lang: str = "ru"
+
+@app.post("/api/voice/speak")
+async def voice_speak(s: Speak, user=Depends(need("read"))):
+    try:
+        wav = await asyncio.to_thread(services.speak, s.text, s.lang)
+    except FileNotFoundError as e:
+        raise HTTPException(503, str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(502, f"piper failed: {e}"[:300])
+    return Response(wav, media_type="audio/wav", headers={"Cache-Control": "no-store"})
 
 @app.get("/api/library")
 def lib(user=Depends(need("read"))): return library.info()

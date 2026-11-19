@@ -2,17 +2,18 @@ import { FormEvent, useEffect, useState } from "react";
 import { api, fmtUsd, withConfirm } from "../api";
 import type { Approval, Limits, Me, Task } from "../types";
 import { ago, Badge, useUi } from "./common";
+import { useWorld } from "../world/store";
 
-type Tab = "overview" | "tasks" | "approvals" | "limits" | "costs" | "integrations" | "audit" | "users";
+type Tab = "overview" | "tasks" | "approvals" | "limits" | "costs" | "integrations" | "memory" | "audit" | "users";
 
 /** Central JARVIS tower: the general control panel. */
 export default function TowerPanel({ me, limits, tick, onClose, onOpenTask, refresh }:
   { me: Me; limits: Limits | null; tick: number; onClose: () => void; onOpenTask: (id: number) => void; refresh: () => void }) {
-  const [tab, setTab] = useState<Tab>("overview");
+  const [tab, setTab] = useState<Tab>((useWorld.getState().towerTab as Tab) || "overview");
   const can = (p: string) => me.perms.includes(p);
   const tabs: [Tab, string, boolean][] = [
     ["overview", "Обзор", true], ["tasks", "Задачи", true], ["approvals", "Подтверждения", true], ["limits", "Лимиты", true],
-    ["costs", "Расходы и ошибки", true], ["integrations", "Интеграции", true], ["audit", "Аудит", can("audit.read")], ["users", "Доступ", can("users.manage")],
+    ["costs", "Расходы и ошибки", true], ["integrations", "Интеграции", true], ["memory", "Память", true], ["audit", "Аудит", can("audit.read")], ["users", "Доступ", can("users.manage")],
   ];
   return (
     <aside className="panel wide">
@@ -29,6 +30,7 @@ export default function TowerPanel({ me, limits, tick, onClose, onOpenTask, refr
       {tab === "audit" && <Audit tick={tick} />}
       {tab === "users" && <Users />}
       {tab === "integrations" && <Integrations tick={tick} />}
+      {tab === "memory" && <Memory onOpenTask={onOpenTask} />}
     </aside>
   );
 }
@@ -209,7 +211,8 @@ const RT_INFO: Record<string, string> = {
 
 function Integrations({ tick }: { tick: number }) {
   const [r, setR] = useState<any>(null);
-  useEffect(() => { api("/runtimes").then(setR).catch(() => {}); }, [tick]);
+  const [s, setS] = useState<any>(null);
+  useEffect(() => { api("/runtimes").then(setR).catch(() => {}); api("/services").then(setS).catch(() => {}); }, [tick]);
   if (!r) return null;
   return (
     <div>
@@ -226,6 +229,44 @@ function Integrations({ tick }: { tick: number }) {
             </div>
           </li>
         ))}
+      </ul>
+      {s && <>
+        <h4>Локальные сервисы</h4>
+        <ul className="tasks">
+          <li><div><span className={`badge ${s.memory.enabled ? "st-succeeded" : "st-failed"}`}>{s.memory.enabled ? "готова" : "выкл."}</span> <b>Память — Chroma</b>
+            <div className="small muted">записей: {s.memory.count ?? "—"} · эмбеддинги: {s.memory.embed_model} (через LLM-сервер)</div></div></li>
+          <li><div><span className={`badge ${s.stt.ready ? "st-succeeded" : "st-failed"}`}>{s.stt.ready ? "готово" : "не запущено"}</span> <b>Распознавание речи — whisper.cpp</b>
+            <div className="small muted">{s.stt.url} · {s.stt.built ? "сервер собран" : "не собран: scripts/setup_services.sh whisper"}</div></div></li>
+          <li><div><span className={`badge ${s.tts.ready ? "st-succeeded" : "st-failed"}`}>{s.tts.ready ? "готово" : "нет голоса"}</span> <b>Синтез речи — Piper</b>
+            <div className="small muted">голоса: {Object.entries(s.tts.voices).map(([l, v]) => `${l}: ${v ?? "—"}`).join(", ")}</div></div></li>
+          <li><div><span className={`badge ${s.mcp.servers.length ? "st-succeeded" : "st-failed"}`}>{s.mcp.servers.length ? "готово" : "нет"}</span> <b>Инструменты агентов — MCP</b>
+            <div className="small muted">{s.mcp.servers.join(", ") || "scripts/setup_services.sh mcp"} (для Claude Code; доступ только к папке проекта)</div></div></li>
+        </ul>
+      </>}
+    </div>
+  );
+}
+
+function Memory({ onOpenTask }: { onOpenTask: (id: number) => void }) {
+  const { toast } = useUi();
+  const [q, setQ] = useState(""); const [rows, setRows] = useState<any[] | null>(null);
+  const search = async (e: FormEvent) => {
+    e.preventDefault(); if (!q.trim()) return;
+    try { setRows(await api(`/memory/search?q=${encodeURIComponent(q)}&n=8`)); } catch (err: any) { toast(err.message, "err"); }
+  };
+  return (
+    <div>
+      <p className="small muted">Архив результатов: успешные задачи сохраняются в Chroma, похожие прошлые результаты автоматически добавляются агентам как контекст.</p>
+      <form className="row" onSubmit={search}><input style={{ flex: 1 }} placeholder="Поиск по прошлым результатам…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <button className="primary">Найти</button></form>
+      <ul className="tasks">
+        {rows?.map((r) => (
+          <li key={r.id} className="clickable" onClick={() => r.metadata?.task_id && onOpenTask(r.metadata.task_id)}>
+            <div><span className="tag">{r.metadata?.agent}</span> #{r.metadata?.task_id} <span className="muted small">близость {(1 - r.distance).toFixed(2)}</span>
+              <div className="small">{r.document.slice(0, 220)}</div></div>
+          </li>
+        ))}
+        {rows && !rows.length && <li className="muted">Ничего не найдено</li>}
       </ul>
     </div>
   );

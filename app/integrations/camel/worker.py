@@ -7,7 +7,7 @@ settings.llm_model == "stub", used for wiring tests).
 """
 import os, sys, time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "common"))
-from protocol import agent_definition, emit, finish, llm_settings, run   # noqa: E402
+from protocol import task_prompt, agent_definition, emit, finish, llm_settings, run   # noqa: E402
 
 
 def main(task):
@@ -41,7 +41,7 @@ def main(task):
 
     coordinator = ChatAgent(system_message=BaseMessage.make_assistant_message("jarvis", coord["system_prompt"][:8000]), model=make())
     specialist = ChatAgent(system_message=BaseMessage.make_assistant_message(spec["name"], spec["system_prompt"][:8000]), model=make())
-    msg = BaseMessage.make_user_message("jarvis", f"Task for {spec['name']}: {task['prompt']}")
+    msg = BaseMessage.make_user_message("jarvis", f"Task for {spec['name']}: {task_prompt(task)}")
     transcript, answer = [], ""
     for i in range(turns):
         emit("delegate.start", agent=spec["name"], description=f"CAMEL turn {i + 1}")

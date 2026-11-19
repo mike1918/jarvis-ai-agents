@@ -83,3 +83,47 @@ Ollama) lets the real library code run end-to-end without a model:
 | openhands | real agent-server; the agent runs `cat calc.py` in the project via the SDK and finishes |
 Not verified here: answer quality with a real Ollama model (the container cannot download models), OpenHands in
 Docker, browser-use on real websites.
+
+# Memory, voice and agent tools: Chroma, whisper.cpp, Piper, MCP servers
+
+| Project | Connected as | Version | What it gives the city |
+|---|---|---|---|
+| [chroma-core/chroma](https://github.com/chroma-core/chroma) | PyPI `chromadb`, embedded `PersistentClient` in `.venvs/chroma` (`integrations/chroma/memory.py`) | 1.5.9 | memory: successful results are stored; similar past results are added to new tasks as context; tower → «Память», room «Архив результатов» |
+| [ggml-org/whisper.cpp](https://github.com/ggml-org/whisper.cpp) | built from the pinned tag into `.services/whisper.cpp`, runs as `whisper-server` | v1.9.5 | local speech-to-text: the browser records (MediaRecorder, also on iPhone) → `/api/voice/transcribe` → whisper.cpp; nothing goes to the cloud |
+| [rhasspy/piper](https://github.com/rhasspy/piper) → successor [OHF-Voice/piper1-gpl](https://github.com/OHF-Voice/piper1-gpl) | PyPI `piper-tts` CLI in `.venvs/piper` (separate process) | 1.8.0 | local voice of JARVIS (`/api/voice/speak`) |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | npm `@modelcontextprotocol/server-filesystem` + PyPI `mcp-server-git`, `mcp-server-time`, `mcp-server-fetch` | 2.4.0 / 2026.11.18 | standard tools for agents (project files, git, time; web fetch opt-in) passed to Claude Code with `--mcp-config` |
+
+Licenses: Chroma Apache-2.0; whisper.cpp MIT; MCP servers MIT/Apache-2.0; **piper1-gpl is GPL-3.0** — it is used
+only as a separate executable, not linked into the city. `rhasspy/piper` itself is archived ("Development has moved").
+
+## Setup
+```bash
+scripts/setup_services.sh                       # chroma, piper, mcp, whisper (builds whisper-server with cmake)
+# models (not downloaded automatically):
+ollama pull nomic-embed-text                    # embeddings for memory (JARVIS_EMBED_MODEL)
+bash .services/whisper.cpp/models/download-ggml-model.sh base     # or small / medium for better Russian
+.services/whisper.cpp/build/bin/whisper-server -m .services/whisper.cpp/models/ggml-base.bin \
+    --host 127.0.0.1 --port 8178 --convert &   # --convert: accepts webm/ogg/m4a from browsers (needs ffmpeg)
+.venvs/piper/bin/python -m piper.download_voices ru_RU-irina-medium --download-dir .services/piper-voices
+```
+| Variable | Default | |
+|---|---|---|
+| `JARVIS_MEMORY` | `auto` | `off` disables memory |
+| `JARVIS_EMBED_MODEL` | `nomic-embed-text` | embedding model on the LLM endpoint |
+| `JARVIS_WHISPER_URL` | `http://127.0.0.1:8178` | whisper.cpp server |
+| `JARVIS_PIPER_VOICES` | `.services/piper-voices` | folder with `<lang>_<REGION>-*.onnx` voices |
+| `JARVIS_MCP_FETCH` | off | `1` gives agents the MCP fetch tool (web access) |
+
+Rules: DRY RUN results are never stored in memory; memory context is marked "verify before relying on them";
+MCP filesystem/git servers are restricted to the task's project directory; voice transcription is audited.
+
+## Verified here
+- Chroma: real embedded DB; add/search/stats; retrieval picks the right past task; a second task receives the
+  first one as context (`backend/tests/test_services.py`).
+- MCP: all four servers started over stdio with the official MCP client, tools listed and called
+  (`integrations/mcp/check_servers.py`): filesystem list_directory, git_status, time get_current_time; fetch listed.
+- whisper.cpp: built v1.9.5; `whisper-server` accepted browser-format webm, converted it and answered JSON through
+  `/api/voice/transcribe`. Only the repository's test model was available, so recognition quality is NOT verified.
+- Piper: CLI installed; voices could not be downloaded here (Hugging Face blocked) — `/api/voice/speak` is tested
+  with a CLI test double; real speech output is NOT verified.
+- Not verified: Claude Code actually using the MCP tools in a paid run.

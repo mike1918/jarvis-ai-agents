@@ -1,0 +1,4 @@
+# MCP reference servers (modelcontextprotocol/servers) + the MCP client used by tests
+mcp-server-git==2026.11.18
+mcp-server-time==2026.11.18
+mcp-server-fetch==2026.11.18

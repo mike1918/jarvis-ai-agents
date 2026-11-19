@@ -1,0 +1,2 @@
+# Piper TTS (OHF-Voice/piper1-gpl, the successor of rhasspy/piper). License: GPL-3.0 - used as a separate process only.
+piper-tts==1.8.0

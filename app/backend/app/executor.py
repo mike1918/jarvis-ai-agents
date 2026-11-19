@@ -26,11 +26,15 @@ class Run:
             try: os.killpg(self.proc.pid, signal.SIGTERM)
             except ProcessLookupError: pass
 
-def build_cmd(agent, prompt, mode, budget):
-    return [settings.claude_bin, "-p", "--output-format", "stream-json", "--verbose",
-            "--max-budget-usd", f"{budget:.2f}",
-            "--permission-mode", "acceptEdits" if mode == "write" else "default",
-            "--agent", agent, "--", prompt]
+def build_cmd(agent, prompt, mode, budget, mcp_config_path=None, context=""):
+    cmd = [settings.claude_bin, "-p", "--output-format", "stream-json", "--verbose",
+           "--max-budget-usd", f"{budget:.2f}",
+           "--permission-mode", "acceptEdits" if mode == "write" else "default", "--agent", agent]
+    if mcp_config_path:
+        cmd += ["--mcp-config", mcp_config_path]            # MCP reference servers scoped to the project
+    if context:
+        cmd += ["--append-system-prompt", context]           # relevant earlier results from city memory
+    return cmd + ["--", prompt]
 
 def runtime_of(task):
     return task.get("runtime") or settings.executor
@@ -41,7 +45,13 @@ async def run_task(task, project_path, run: Run, on_event):
         return await _dry(task, run, on_event)
     if rt != "claude":
         return await _run_worker(rt, task, project_path, run, on_event)
-    cmd = build_cmd(task["agent"], task["prompt"], task["mode"], task["max_budget_usd"])
+    from . import services
+    mcp = services.mcp_config(project_path)
+    mcp_path = None
+    if mcp["mcpServers"]:
+        mcp_path = os.path.join(settings.data_dir, f"mcp-task-{task['id']}.json")
+        with open(mcp_path, "w") as f: json.dump(mcp, f)
+    cmd = build_cmd(task["agent"], task["prompt"], task["mode"], task["max_budget_usd"], mcp_path, task.get("context") or "")
     run.proc = await asyncio.create_subprocess_exec(*cmd, cwd=project_path, stdout=asyncio.subprocess.PIPE,
                                                     stderr=asyncio.subprocess.PIPE, start_new_session=True,
                                                     stdin=asyncio.subprocess.DEVNULL, limit=16 * 1024 * 1024)
@@ -133,6 +143,7 @@ async def _run_worker(rt, task, project_path, run: Run, on_event):
         return RunResult(ok=False, error=f"runtime '{rt}' is not installed (scripts/setup_integrations.sh {runtimes.RUNTIMES[rt].worker})")
     payload = {"task_id": task["id"], "agent": task["agent"], "prompt": task["prompt"], "mode": task["mode"],
                "budget_usd": task["max_budget_usd"], "project_path": project_path, "library_dir": str(settings.library_dir),
+               "context": task.get("context") or "",
                "settings": runtimes.task_settings()}
     env = {**os.environ, "ANONYMIZED_TELEMETRY": "false", "BROWSER_USE_AUTO_LOGIN": "false", "PYTHONUNBUFFERED": "1",
            "OPENHANDS_SUPPRESS_BANNER": "1"}

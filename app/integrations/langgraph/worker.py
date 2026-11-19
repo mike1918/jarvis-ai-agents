@@ -11,7 +11,7 @@ review   : the jarvis coordinator combines the specialists' answers.
 import os, sys, time
 from typing import TypedDict
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "common"))
-from protocol import agent_definition, emit, finish, llm_settings, route, run   # noqa: E402
+from protocol import task_prompt, agent_definition, emit, finish, llm_settings, route, run   # noqa: E402
 import httpx                                                                     # noqa: E402
 from langgraph.graph import END, StateGraph                                      # noqa: E402
 
@@ -84,7 +84,7 @@ def make(task):
 def main(task):
     graph, usage, model = make(task)
     emit("session", session_id=f"langgraph-{task['task_id']}-{int(time.time())}", model=f"langgraph+{model}")
-    out = graph.invoke({"prompt": task["prompt"]})
+    out = graph.invoke({"prompt": task_prompt(task)})
     errors = [a for a, t in (out.get("answers") or {}).items() if str(t).startswith("ERROR:")]
     finish(not errors, result=out.get("final", ""), cost_usd=0.0, usage=usage,
            error=f"specialists failed: {errors}" if errors else None)

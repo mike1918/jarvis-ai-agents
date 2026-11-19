@@ -6,7 +6,7 @@ Model: any LiteLLM model; by default the local Ollama endpoint ("openai/<model>"
 """
 import os, sys, time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "common"))
-from protocol import agent_definition, emit, finish, llm_settings, run   # noqa: E402
+from protocol import task_prompt, agent_definition, emit, finish, llm_settings, run   # noqa: E402
 
 
 def main(task):
@@ -49,7 +49,7 @@ def main(task):
     conv = Conversation(agent=agent, workspace=workspace, callbacks=[on_event], visualizer=None,
                         max_iteration_per_run=int(s.get("max_iterations", 30)))
     try:
-        conv.send_message(f"You act as the library agent '{a['name']}' ({a['description']}).\n\n{task['prompt']}")
+        conv.send_message(f"You act as the library agent '{a['name']}' ({a['description']}).\n\n{task_prompt(task)}")
         conv.run()
     finally:
         try:

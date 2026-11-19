@@ -73,6 +73,15 @@ class Engine:
         async def on_event(kind, data):
             if kind == "session": db.ex("UPDATE tasks SET session_id=? WHERE id=?", (data.get("session_id"), t["id"]))
             self.event(t["id"], kind, data)
+        from . import services
+        if services.memory_enabled():
+            try:
+                ctx = await asyncio.to_thread(services.memory_context, t["prompt"])
+            except Exception:  # noqa: BLE001
+                ctx = ""
+            if ctx:
+                t = {**t, "context": ctx}
+                self.event(t["id"], "text", {"text": f"memory: {ctx.count('[past task #')} earlier result(s) added as context"})
         try:
             res = await executor.run_task(t, proj["path"], run, on_event)
         except Exception as e:
@@ -87,7 +96,17 @@ class Engine:
         eventlog.check_budget()
         status = "cancelled" if run.cancelled else ("succeeded" if res.ok else "failed")
         self._finish(t["id"], status, result=res.result, error=res.error, cost=res.cost_usd, session=res.session_id, delegated=res.delegated)
+        if status == "succeeded" and executor.runtime_of(t) != "dry" and services.memory_enabled():   # simulated results never become memory
+            asyncio.create_task(self._remember({**t, "result": res.result}))
         self.notify()
+
+    async def _remember(self, t):
+        from . import services
+        try:
+            r = await asyncio.to_thread(services.memory_add, t)
+            self.event(t["id"], "text", {"text": "memory: result saved" if r.get("ok") else f"memory: not saved ({r.get('error', '')[:120]})"})
+        except Exception as e:  # noqa: BLE001
+            db.ex("INSERT INTO errors(ts,task_id,agent,kind,message) VALUES(?,?,?,?,?)", (time.time(), t["id"], t["agent"], "memory", repr(e)[:500]))
 
     def _finish(self, task_id, status, result=None, error=None, cost=0.0, session=None, delegated=None):
         db.ex("UPDATE tasks SET status=?, finished_at=?, result=COALESCE(?,result), error=?, cost_usd=?, "

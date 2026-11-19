@@ -47,6 +47,11 @@ def route(library_dir: str, text: str):
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
     return m.route(text, library_dir)
 
+def task_prompt(task: dict) -> str:
+    """The task text, preceded by relevant earlier city results from memory (if the backend provided any)."""
+    ctx = (task.get("context") or "").strip()
+    return f"{ctx}\n\n---\n\n{task['prompt']}" if ctx else task["prompt"]
+
 def llm_settings(task: dict):
     s = task.get("settings") or {}
     base = (s.get("llm_base_url") or "http://127.0.0.1:11434/v1").rstrip("/")

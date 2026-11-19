@@ -11,3 +11,4 @@ workspace/
 .env
 frontend/tsconfig.tsbuildinfo
 .venvs/
+.services/
