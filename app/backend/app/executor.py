@@ -39,13 +39,13 @@ async def run_task(task, project_path, run: Run, on_event):
     run.proc = await asyncio.create_subprocess_exec(*cmd, cwd=project_path, stdout=asyncio.subprocess.PIPE,
                                                     stderr=asyncio.subprocess.PIPE, start_new_session=True,
                                                     stdin=asyncio.subprocess.DEVNULL, limit=16 * 1024 * 1024)
-    res = RunResult(ok=False); open_calls = {}; running = {}   # running: agent -> count of live delegations
+    res = RunResult(ok=False); open_calls = {}; tools_open = {}; running = {}   # running: agent -> count of live delegations
     log_path = os.path.join(project_path, ".claude", "jarvis", "logs", "agents.jsonl")
     log_pos = os.path.getsize(log_path) if os.path.exists(log_path) else 0
-    async def finish(agent, is_error=False):
+    async def finish(agent, is_error=False, source=None):
         if running.get(agent):
             running[agent] -= 1
-            await on_event("delegate.finish", {"agent": agent, "is_error": is_error})
+            await on_event("delegate.finish", {"agent": agent, "is_error": is_error, **({"source": source} if source else {})})
     async def tail_guard_log():
         """Background subagents report completion through the library's guard hook journal (SubagentStop)."""
         nonlocal log_pos
@@ -58,7 +58,7 @@ async def run_task(task, project_path, run: Run, on_event):
                 try: ev = json.loads(line)
                 except Exception: continue
                 if ev.get("event") == "finish" and ev.get("session") == res.session_id:
-                    await finish(ev.get("agent_type"))
+                    await finish(ev.get("agent_type"), source="guard-hook-journal")
     async def read():
         async for raw in run.proc.stdout:
             try: ev = json.loads(raw)
@@ -76,11 +76,15 @@ async def run_task(task, project_path, run: Run, on_event):
                             open_calls[c.get("id")] = sub; res.delegated.append(sub); running[sub] = running.get(sub, 0) + 1
                             await on_event("delegate.start", {"agent": sub, "description": inp.get("description"), "background": bool(inp.get("run_in_background"))})
                         else:
-                            await on_event("tool", {"name": c.get("name")})
+                            tools_open[c.get("id")] = c.get("name")
+                            await on_event("tool", {"name": c.get("name"), "id": c.get("id"),
+                                                    "file": inp.get("file_path") or inp.get("notebook_path") or inp.get("path")})
                     elif c.get("type") == "text" and c.get("text", "").strip():
                         await on_event("text", {"text": c["text"][:400]})
             elif t == "user":
                 for c in (ev.get("message") or {}).get("content") or []:
+                    if isinstance(c, dict) and c.get("type") == "tool_result" and c.get("tool_use_id") in tools_open:
+                        await on_event("tool.done", {"name": tools_open.pop(c["tool_use_id"]), "id": c["tool_use_id"], "is_error": bool(c.get("is_error"))})
                     if isinstance(c, dict) and c.get("type") == "tool_result" and c.get("tool_use_id") in open_calls:
                         agent = open_calls.pop(c["tool_use_id"])
                         body = json.dumps(c.get("content"), ensure_ascii=False)

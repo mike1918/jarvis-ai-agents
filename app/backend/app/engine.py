@@ -1,6 +1,6 @@
 """Task queue with controlled parallelism, budgets, approvals and kill switch."""
 import asyncio, json, time
-from . import db, events, executor
+from . import db, events, eventlog, executor
 from .config import settings
 
 class Engine:
@@ -64,6 +64,8 @@ class Engine:
         elif kind == "status" and data.get("status") in ("succeeded", "failed", "cancelled", "rejected"): self.delegates.pop(task_id, None)
         db.ex("INSERT INTO task_events(task_id,ts,kind,data) VALUES(?,?,?,?)", (task_id, time.time(), kind, json.dumps(data, ensure_ascii=False)))
         events.publish("task." + kind, task_id=task_id, **data)
+        task = db.q1("SELECT id, agent, project_id FROM tasks WHERE id=?", (task_id,))
+        if task: eventlog.from_engine(task, kind, data)
 
     async def _run(self, t, run):
         proj = db.q1("SELECT path FROM projects WHERE id=?", (t["project_id"],))
@@ -81,6 +83,7 @@ class Engine:
             db.ex("INSERT INTO costs(ts,task_id,agent,usd,input_tokens,output_tokens,cache_tokens,model) VALUES(?,?,?,?,?,?,?,?)",
                   (time.time(), t["id"], t["agent"], res.cost_usd, u.get("input_tokens", 0), u.get("output_tokens", 0),
                    u.get("cache_creation_input_tokens", 0) + u.get("cache_read_input_tokens", 0), res.model))
+        eventlog.check_budget()
         status = "cancelled" if run.cancelled else ("succeeded" if res.ok else "failed")
         self._finish(t["id"], status, result=res.result, error=res.error, cost=res.cost_usd, session=res.session_id, delegated=res.delegated)
         self.notify()

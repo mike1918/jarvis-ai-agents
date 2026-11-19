@@ -110,3 +110,51 @@ def test_claude_executor_stream_parsing():
         h = c.post("/api/commands", json={"text": "hang forever"}).json()["task"]
         wait_status(c, h["id"], {"running"}); assert c.post(f"/api/tasks/{h['id']}/cancel").json()["ok"]
         assert wait_status(c, h["id"], {"cancelled"})["status"] == "cancelled"
+
+def test_unified_events_and_agent_states(client):
+    t = client.post("/api/commands", json={"text": "@debugger найди ошибку"}).json()["task"]
+    wait_status(client, t["id"], {"running"})
+    st = client.get("/api/agent-states").json()
+    assert st["states"]["debugger"]["state"] == "working" and st["states"]["debugger"]["task_id"] == t["id"]
+    assert st["states"]["sql-pro"]["state"] == "idle" and len(st["states"]) == 126
+    wait_status(client, t["id"], {"succeeded"})
+    assert client.get("/api/agent-states").json()["states"]["debugger"]["state"] == "completed"
+    ev = client.get(f"/api/event-log?task_id={t['id']}").json()
+    types = [e["type"] for e in ev]
+    assert types[:2] == ["task.created", "task.assigned"] and "task.started" in types and "task.completed" in types
+    assert all({"id", "ts", "agent", "task_id", "project_id", "type", "status", "data", "source", "verified"} <= set(e) for e in ev)
+    # dry-run facts are never marked as verified real work; backend status facts are
+    prog = [e for e in ev if e["type"] == "task.progress"]
+    assert prog and all(e["source"] == "dry-run" and not e["verified"] for e in prog)
+    assert all(e["verified"] for e in ev if e["source"] == "backend")
+    card = client.get("/api/agents/debugger").json()
+    assert card["visual"]["state"] == "completed" and card["events"]
+    lim = client.get("/api/limits").json()
+    assert {"reserved_usd", "expected_usd", "remaining_today_usd", "paid_blocked"} <= set(lim)
+
+def test_approval_events_and_waiting_state(client):
+    client.post("/api/users", json={"username": "operator2", "password": "operator-pass-2", "role": "operator", "confirm_password": PW})
+    login_as(client, "operator2", "operator-pass-2")
+    t = client.post("/api/commands", json={"text": "!write @python-pro поправь"}).json()["task"]
+    assert client.get("/api/agent-states").json()["states"]["python-pro"]["state"] == "waiting"
+    login_as(client, *OWNER)
+    ap = client.get("/api/approvals").json()[0]
+    client.post(f"/api/approvals/{ap['id']}", json={"approve": True, "confirm_password": PW})
+    wait_status(client, t["id"], {"succeeded"})
+    types = [e["type"] for e in client.get(f"/api/event-log?task_id={t['id']}").json()]
+    assert "approval.requested" in types and "approval.resolved" in types and types.index("approval.requested") < types.index("approval.resolved")
+
+def test_budget_threshold_event():
+    import os
+    c, main = make_client("claude", os.path.join(os.path.dirname(__file__), "fake_claude.py"))
+    with c:
+        c.post("/api/setup", json={"username": OWNER[0], "password": PW}); c.post("/api/login", json={"username": OWNER[0], "password": PW})
+        c.put("/api/limits", json={"daily_budget_usd": 0.015, "confirm_password": PW})
+        t = c.post("/api/tasks", json={"prompt": "проверь", "agent": "debugger", "budget_usd": 0.01}).json()
+        wait_status(c, t["id"], {"succeeded"})
+        ev = c.get("/api/event-log").json()
+        assert any(e["type"] == "budget.threshold_reached" and e["status"] == "warning" for e in ev)
+        tools = [e for e in ev if e["type"] == "tool.started"]
+        assert all(e["source"] == "claude-code-stream" for e in tools)
+        assert c.get("/api/limits").json()["paid_blocked"] is False
+        assert c.post("/api/tasks", json={"prompt": "ещё", "agent": "debugger", "budget_usd": 0.01}).status_code == 402

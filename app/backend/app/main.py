@@ -6,7 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from . import auth, db, events, library
+from . import auth, db, events, eventlog, library
 from .auth import need, current_user
 from .config import settings
 from .engine import engine
@@ -26,7 +26,7 @@ def ensure_project(name, user_id=None):
 
 @asynccontextmanager
 async def lifespan(app):
-    db.connect(); library.registry()
+    db.connect(); eventlog._ensure(); library.registry()
     ensure_project("sandbox")
     engine.start()
     yield
@@ -111,6 +111,41 @@ def state_label(s):
     if s["queued"] or s["awaiting_approval"]: return "queued"
     return "idle"
 
+RECENT_S = 600  # a finished task keeps its agent in "completed"/"error" for 10 minutes
+
+def visual_states():
+    """Visual state of every library agent, derived only from backend facts (tasks, live delegations, events)."""
+    reg = library.agents(); now = time.time(); out = {}
+    active = db.q("SELECT id,agent,status,started_at,created_at,project_id,max_budget_usd FROM tasks "
+                  "WHERE status IN ('running','queued','awaiting_approval') ORDER BY id")
+    recent = db.q("SELECT id,agent,status,finished_at,delegated,cost_usd,project_id FROM tasks "
+                  "WHERE status IN ('succeeded','failed') AND finished_at>? ORDER BY finished_at", (now - RECENT_S,))
+    for a in reg: out[a["name"]] = {"state": "idle", "task_id": None, "since": None, "project_id": None}
+    def put(name, state, task, since):
+        if name in out: out[name] = {"state": state, "task_id": task["id"], "since": since, "project_id": task["project_id"]}
+    for t in recent:
+        st = "completed" if t["status"] == "succeeded" else "error"
+        put(t["agent"], st, t, t["finished_at"])
+        for d in json.loads(t["delegated"] or "[]"): put(d, st, t, t["finished_at"])
+    for t in active:
+        st = {"queued": "assigned", "awaiting_approval": "waiting", "running": "working"}[t["status"]]
+        put(t["agent"], st, t, t["started_at"] or t["created_at"])
+        if t["status"] == "running":
+            delegates_now = engine.delegates.get(t["id"], [])
+            ever = db.q1("SELECT 1 FROM task_events WHERE task_id=? AND kind='delegate.start'", (t["id"],))
+            if ever and not delegates_now: out[t["agent"]]["state"] = "reviewing"   # coordinator checks specialists' output
+            for d in delegates_now: put(d, "working", t, now)
+    return out
+
+@app.get("/api/agent-states")
+def agent_states_all(user=Depends(need("read"))):
+    return {"ts": time.time(), "executor": settings.executor, "states": visual_states(),
+            "last_event_id": db.q1("SELECT COALESCE(MAX(id),0) m FROM events")["m"]}
+
+@app.get("/api/event-log")
+def event_log(after_id: int = 0, limit: int = 200, task_id: int | None = None, agent: str | None = None, user=Depends(need("read"))):
+    return eventlog.recent(after_id, limit, task_id, agent)
+
 @app.get("/api/library")
 def lib(user=Depends(need("read"))): return library.info()
 
@@ -140,7 +175,14 @@ def district(folder: str, user=Depends(need("read"))):
 def agent_detail(name: str, user=Depends(need("read"))):
     a = library.agent(name)
     if not a: raise HTTPException(404, "no such agent")
-    return {**a, "state": state_label(agent_states().get(name)),
+    ev = eventlog.recent(0, 300, agent=name)
+    tools = sorted({e["data"].get("tool") for e in ev if e["type"].startswith("tool.") and e["data"].get("tool")})
+    files = sorted({e["data"].get("file") for e in ev if e["type"] == "tool.started" and e["data"].get("file")})
+    vs = visual_states().get(name, {})
+    cur = db.q1("SELECT id,status,prompt,started_at,created_at,cost_usd,max_budget_usd,project_id,session_id FROM tasks WHERE id=?", (vs.get("task_id"),)) if vs.get("task_id") else None
+    model = next((e["data"].get("model") for e in reversed(ev) if e["data"].get("model")), None)
+    return {**a, "visual": vs, "current_task": cur, "tools_used": tools, "files": files, "last_model": model,
+            "events": ev[-40:], "state": state_label(agent_states().get(name)),
             "tasks": db.q("SELECT id,status,mode,prompt,created_at,finished_at,cost_usd,error FROM tasks WHERE agent=? OR delegated LIKE ? "
                           "ORDER BY id DESC LIMIT 20", (name, f'%"{name}"%'))}
 
@@ -220,8 +262,15 @@ def decide(aid: int, d: Decision, request: Request, user=Depends(need("approve")
 
 @app.get("/api/limits")
 def limits(user=Depends(need("read"))):
-    return {**db.get_limits(), "spent_today_usd": db.spent_since(db.day_start()), "spent_month_usd": db.spent_since(db.month_start()),
-            "running": len(engine.runs), "executor": settings.executor}
+    lim = db.get_limits(); today, month = db.spent_since(db.day_start()), db.spent_since(db.month_start())
+    reserved = db.q1("SELECT COALESCE(SUM(max_budget_usd),0) s FROM tasks WHERE status='running'")["s"]
+    expected = db.q1("SELECT COALESCE(SUM(max_budget_usd),0) s FROM tasks WHERE status IN ('queued','awaiting_approval')")["s"]
+    return {**lim, "spent_today_usd": today, "spent_month_usd": month, "reserved_usd": round(reserved, 4), "expected_usd": round(expected, 4),
+            "remaining_today_usd": round(max(0, lim["daily_budget_usd"] - today - reserved), 4),
+            "remaining_month_usd": round(max(0, lim["monthly_budget_usd"] - month - reserved), 4),
+            "paid_blocked": today + reserved >= lim["daily_budget_usd"] or month + reserved >= lim["monthly_budget_usd"],
+            "running": len(engine.runs), "executor": settings.executor,
+            "note": "Caps are enforced before start and passed to the CLI as --max-budget-usd; provider-side billing can lag."}
 
 class Limits(BaseModel):
     max_parallel_tasks: int | None = Field(default=None, ge=1, le=8)
@@ -270,6 +319,8 @@ def new_project(p: NewProject, request: Request, user=Depends(need("project.mana
 def stats(user=Depends(need("read"))):
     return {"by_status": db.q("SELECT status, COUNT(*) n FROM tasks GROUP BY status"),
             "cost_by_day": db.q("SELECT date(ts,'unixepoch','localtime') day, ROUND(SUM(usd),4) usd, COUNT(*) runs FROM costs GROUP BY day ORDER BY day DESC LIMIT 31"),
+            "cost_by_project": db.q("SELECT p.name project, ROUND(SUM(c.usd),4) usd, COUNT(*) runs FROM costs c JOIN tasks t ON t.id=c.task_id "
+                                    "JOIN projects p ON p.id=t.project_id GROUP BY p.name ORDER BY usd DESC"),
             "cost_by_agent": db.q("SELECT agent, ROUND(SUM(usd),4) usd, COUNT(*) runs FROM costs GROUP BY agent ORDER BY usd DESC LIMIT 20"),
             "errors": db.q("SELECT * FROM errors ORDER BY id DESC LIMIT 20")}
 
