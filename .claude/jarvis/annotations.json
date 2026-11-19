@@ -94,5 +94,482 @@
   "origin": "jarvis-ai-city (added 2026-11)",
   "runtime": "langgraph",
   "note": "plan node of the LangGraph JARVIS workflow; plans only"
+ },
+ "budget-controller": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "owner-briefing-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "admin-panel-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "api-gateway-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "astro-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "background-jobs-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "browser-extension-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "caching-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "cli-tool-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "design-system-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "feature-flag-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "geospatial-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "graphql-federation-implementer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "htmx-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "media-upload-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "multi-tenancy-architect": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "notification-system-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "pwa-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "realtime-collaboration-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "sdk-designer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "search-integration-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "svelte-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "tauri-desktop-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "webrtc-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "bash-scripting-expert": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "c-systems-programmer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "clojure-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "cobol-modernization-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "deno-bun-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "fortran-modernizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "gradle-build-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "haskell-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "julia-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "lua-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "nestjs-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "nuxt-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "objective-c-maintainer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "perl-maintainer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "r-statistician": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "scala-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "webassembly-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "zig-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "ansible-automation-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "aws-solutions-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "backup-recovery-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "ci-pipeline-optimizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "dns-email-admin": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "edge-cdn-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "finops-cost-optimizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "gcp-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "helm-chart-maintainer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "linux-sysadmin": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "observability-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "reverse-proxy-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "self-hosting-admin": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "serverless-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "service-mesh-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "api-contract-tester": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "auth-security-reviewer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "container-security-auditor": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "dependency-vulnerability-scanner": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "e2e-playwright-tester": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "flaky-test-hunter": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "fuzzing-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "load-tester": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "mobile-app-tester": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "mutation-testing-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "release-qa-gatekeeper": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "secrets-leak-auditor": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "supply-chain-security-reviewer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "test-data-manager": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "threat-modeler": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "unit-test-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "visual-regression-tester": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "ai-safety-evaluator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "analytics-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "bi-dashboard-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "computer-vision-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "data-quality-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "data-visualization-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "embedding-search-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "etl-orchestration-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "feature-engineering-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "llm-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "local-llm-ops": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "model-evaluation-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "nlp-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "prompt-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "rag-architect": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "recommendation-systems-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "speech-ai-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "streaming-data-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "synthetic-data-generator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "time-series-forecaster": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "api-docs-generator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "build-performance-optimizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "changelog-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "dependency-upgrade-manager": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "developer-onboarding-guide": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "documentation-site-builder": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "git-workflow-expert": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "lint-format-configurator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "monorepo-maintainer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "project-scaffolder": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "refactoring-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "agritech-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "audio-music-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "automotive-telematics-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "construction-estimator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "edtech-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "event-ticketing-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "fleet-routing-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "govtech-forms-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "hospitality-tech-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "hr-tech-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "insurance-domain-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "legaltech-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "media-streaming-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "restaurant-ordering-developer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "retail-pos-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "smart-city-planner": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "solar-energy-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "sports-analytics-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "travel-booking-engineer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "brand-strategist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "community-manager": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "contract-clause-reviewer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "customer-support-responder": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "email-marketing-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "financial-modeler": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "grant-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "investor-update-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "meeting-notes-summarizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "okr-coach": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "partnership-manager": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "pitch-deck-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "pricing-strategist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "procurement-vendor-evaluator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "russian-hebrew-translator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "seo-specialist": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "social-media-manager": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "handoff-brief-writer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "quality-gate-reviewer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "runtime-cost-router": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "academic-paper-summarizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "cis-market-researcher": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "fact-checker": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "israel-market-researcher": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "news-digest-monitor": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "open-source-scout": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "patent-researcher": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "policy-regulation-researcher": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "price-monitoring-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "sentiment-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "statistics-consultant": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "supply-chain-risk-analyst": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "survey-designer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "tech-stack-evaluator": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
+ },
+ "user-interview-synthesizer": {
+  "origin": "jarvis-ai-city (300-agent expansion, 2026-11)"
  }
 }

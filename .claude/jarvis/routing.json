@@ -326,6 +326,128 @@
    "agents": [
     "workflow-planner"
    ]
+  },
+  {
+   "task_type": "e2e-tests",
+   "pattern": "\\b(playwright|e2e|end-to-end|cypress)\\b|сквозн\\w* тест|е2е",
+   "agents": [
+    "e2e-playwright-tester",
+    "qa-expert"
+   ]
+  },
+  {
+   "task_type": "load-test",
+   "pattern": "\\b(load test|stress test|k6|locust|rps)\\b|нагрузочн|стресс-тест",
+   "agents": [
+    "load-tester",
+    "performance-engineer"
+   ]
+  },
+  {
+   "task_type": "llm-rag",
+   "pattern": "\\b(llm|rag|prompt|embedding|vector|chatbot)\\b|промпт|эмбеддинг|векторн|чат-бот",
+   "agents": [
+    "llm-engineer",
+    "rag-architect",
+    "prompt-engineer"
+   ]
+  },
+  {
+   "task_type": "local-models",
+   "pattern": "\\b(ollama|llama\\.cpp|gguf|local model)\\b|локальн\\w* модел",
+   "agents": [
+    "local-llm-ops",
+    "local-assistant"
+   ]
+  },
+  {
+   "task_type": "cloud",
+   "pattern": "\\b(aws|gcp|google cloud|lambda|s3|cloud run)\\b|облак",
+   "agents": [
+    "aws-solutions-engineer",
+    "gcp-engineer",
+    "cloud-architect"
+   ]
+  },
+  {
+   "task_type": "monitoring",
+   "pattern": "\\b(prometheus|grafana|monitoring|alerts?|opentelemetry|tracing)\\b|мониторинг|алерт|метрик",
+   "agents": [
+    "observability-engineer",
+    "sre-engineer"
+   ]
+  },
+  {
+   "task_type": "secrets",
+   "pattern": "\\b(leaked? (key|secret|token)|secret scan)\\b|утечк\\w* (ключ|токен|секрет)",
+   "agents": [
+    "secrets-leak-auditor",
+    "security-auditor"
+   ]
+  },
+  {
+   "task_type": "seo-marketing",
+   "pattern": "\\b(seo|marketing|newsletter|social media|campaign)\\b|продвижени|маркетинг|рассылк|соцсет",
+   "agents": [
+    "seo-specialist",
+    "email-marketing-specialist",
+    "social-media-manager"
+   ]
+  },
+  {
+   "task_type": "translation",
+   "pattern": "\\b(translate|translation)\\b|переведи|перевод на (иврит|русский|английский)",
+   "agents": [
+    "russian-hebrew-translator",
+    "i18n-rtl-specialist"
+   ]
+  },
+  {
+   "task_type": "finance-model",
+   "pattern": "\\b(financial model|unit economics|runway|cash flow|pitch deck|investors?)\\b|финмодел|юнит-эконом|инвестор|питч",
+   "agents": [
+    "financial-modeler",
+    "pitch-deck-writer",
+    "investor-update-writer"
+   ]
+  },
+  {
+   "task_type": "open-source",
+   "pattern": "\\b(github repo|open[- ]source|library to use)\\b|репозитори|открыт\\w* код|библиотек\\w* для",
+   "agents": [
+    "open-source-scout",
+    "tech-stack-evaluator"
+   ]
+  },
+  {
+   "task_type": "smart-city",
+   "pattern": "\\b(smart city|parking|traffic lights?|urban)\\b|умн\\w* город|парковк|светофор|городск",
+   "agents": [
+    "smart-city-planner",
+    "geospatial-developer"
+   ]
+  },
+  {
+   "task_type": "israel-market",
+   "pattern": "\\b(israel|israeli|ashdod|tel aviv)\\b|израил|ашдод|тель-авив",
+   "agents": [
+    "israel-market-researcher"
+   ]
+  },
+  {
+   "task_type": "briefing",
+   "pattern": "\\b(daily brief|weekly report|summary for me)\\b|сводк|отч[её]т за (день|неделю)|брифинг",
+   "agents": [
+    "owner-briefing-writer",
+    "budget-controller"
+   ]
+  },
+  {
+   "task_type": "meeting-notes",
+   "pattern": "\\b(meeting notes|transcript)\\b|протокол встречи|итоги встречи|расшифровк",
+   "agents": [
+    "meeting-notes-summarizer"
+   ]
   }
  ],
  "fallback": "general-purpose"

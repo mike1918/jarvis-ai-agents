@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import type { RoomKind, RoomSpec } from "./plan";
-import { box, cyl, pipe, rng, torus, type Mat, type Part } from "./kit";
+import type { RoomKind, RoomSpec } from "./plan.ts";
+import { box, cyl, pipe, rng, torus, type Mat, type Part } from "./kit.ts";
 
 /** Static furniture for a room (local floor coordinates). Returns parts + seat positions for agent workplaces + animated props. */
 export interface Seat { x: number; z: number; yaw: number }
