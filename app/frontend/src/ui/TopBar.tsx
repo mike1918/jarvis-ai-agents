@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, fmtUsd } from "../api";
-import { sim } from "../city/env";
+import { sim } from "../world/sim";
 import { fmtClock } from "../sim/clock";
 import type { Limits, Me } from "../types";
 import { useUi } from "./common";
@@ -14,7 +14,6 @@ export default function TopBar({ me, limits, onTower, onLogout }: { me: Me; limi
   useEffect(() => { const t = setInterval(() => setClock(fmtClock(sim.hours)), 250); return () => clearInterval(t); }, []);
   const setSpeed = (v: number) => { sim.live = false; sim.paused = v === 0; if (v) sim.speed = v; force((x) => x + 1); };
   const live = () => { sim.live = true; sim.paused = false; force((x) => x + 1); };
-  const jump = (h: number) => { sim.live = false; sim.hours = h; force((x) => x + 1); };
   async function stop() {
     if (!confirm("Остановить очередь и прервать все работающие агенты?")) return;
     try { const r = await api("/killswitch", { body: {} }); toast(`Остановлено. Прервано процессов: ${r.stopped_running}`); }
@@ -33,15 +32,14 @@ export default function TopBar({ me, limits, onTower, onLogout }: { me: Me; limi
             <button key={s.v} className={!sim.live && ((s.v === 0 && sim.paused) || (!sim.paused && sim.speed === s.v)) ? "on" : ""} onClick={() => setSpeed(s.v)}>{s.l}</button>
           ))}
           <button className={sim.live ? "on" : ""} onClick={live} title="Реальное время Ашдода">LIVE</button>
-          <button onClick={() => jump(12)} title="Полдень">12:00</button>
-          <button onClick={() => jump(17.7)} title="Закат над морем">🌅</button>
-          <button onClick={() => jump(23)} title="Ночь">23:00</button>
         </div>
       </div>
       <div className="stats">
         {limits && <>
           {limits.executor === "dry" && <span className="badge dry" title="Задачи не вызывают Claude API">DRY RUN</span>}
-          <span title="Расход сегодня / дневной лимит">💰 {fmtUsd(limits.spent_today_usd)} / {fmtUsd(limits.daily_budget_usd)}</span>
+          <span title={`Сегодня ${fmtUsd(limits.spent_today_usd)} из ${fmtUsd(limits.daily_budget_usd)}; месяц ${fmtUsd(limits.spent_month_usd)} из ${fmtUsd(limits.monthly_budget_usd)}; зарезервировано ${fmtUsd(limits.reserved_usd)}; ожидается ${fmtUsd(limits.expected_usd)}`}>
+            💰 {fmtUsd(limits.spent_today_usd)} / {fmtUsd(limits.daily_budget_usd)} <small className="muted">ост. {fmtUsd(limits.remaining_today_usd)}</small></span>
+          {limits.paid_blocked && <span className="badge st-failed" title="Новые платные запуски заблокированы сервером">лимит</span>}
           <span title="Выполняется / максимум параллельно">⚙️ {limits.running}/{limits.max_parallel_tasks}</span>
           {limits.queue_paused && <span className="badge st-failed">очередь на паузе</span>}
         </>}

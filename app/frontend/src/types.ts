@@ -15,6 +15,7 @@ export interface Task {
 export interface Limits {
   max_parallel_tasks: number; default_task_budget_usd: number; approval_threshold_usd: number; hard_task_cap_usd: number;
   daily_budget_usd: number; monthly_budget_usd: number; queue_paused: boolean; spent_today_usd: number; spent_month_usd: number;
-  running: number; executor: string;
+  running: number; executor: string; reserved_usd: number; expected_usd: number; remaining_today_usd: number;
+  remaining_month_usd: number; paid_blocked: boolean;
 }
 export interface Approval { id: number; ts: number; kind: string; reason: string; requested_by_name: string; task?: Task }

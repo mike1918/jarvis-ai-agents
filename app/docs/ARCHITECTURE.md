@@ -62,3 +62,45 @@ Districts and buildings come from the library's `city.json` and `registry.json`;
 - Voice recognition availability depends on the browser (Safari iOS 14.5+, Chrome). It needs HTTPS when used from a phone.
 - Running from an iPhone needs the server reachable from the phone (same Wi-Fi with `HOST=0.0.0.0`, or a deployment behind HTTPS).
 - Costs come from the Claude Code CLI's `total_cost_usd`; account-level spend limits are set in the Anthropic Console.
+
+---
+
+# City v5 — "strategic industrial" world (branch `claude/city-industrial-v5`)
+
+## World model (`frontend/src/world/`)
+| File | Role |
+|---|---|
+| `plan.ts` | world plan: 13 districts, road grid, rail, every main building with id, footprint, floors, materials (`kind`), agent folders and interior floors/rooms |
+| `kit.ts` | procedural materials (concrete/glass/brick/lab facades with night-lit windows, tower glass, corrugated metal, floors), part builders, merge-by-material |
+| `builders.ts` | building archetypes: office, glass office, domed lab, data centre, security, factory (sawtooth roof, striped chimneys, pipes), warehouse, residential; industrial decor (cooling towers, tanks, pipe racks) |
+| `Tower.tsx` | JARVIS tower: stepped octagonal core, buttress fins, gold trims, blue light lines, logo, observation deck, spire + beam, plaza, fountains, parking ramp |
+| `Interior.tsx`, `furniture.ts` | cutaway floors and rooms (18 room types), one desk per library agent, built on demand and disposed on close |
+| `People.tsx` | agent figures (state from the server), decorative staff (grey, no badge), animated equipment |
+| `traffic.ts` | pure simulation: lanes, signals, car-following, "don't block the box", pedestrian graph with crosswalks (unit-tested: `npm test`) |
+| `Life.tsx`, `Blocks.tsx`, `Environment.tsx` | roads/signals, vehicles, pedestrians, train, drones, smoke; blocks, port, marina, parks; sky, sun/moon, clouds, rain, sea |
+| `CameraRig.tsx`, `store.ts` | camera (orbit, pinch, fly-to, ISO, free camera, hotkeys) and the Zustand world store |
+
+Navigation: Exterior → click building → Cutaway (roof/front walls removed, floors selectable) → Room (Interior view) → Agent card.
+Hotkeys: WASD/arrows pan, Q/E rotate, +/- zoom, 1–9 floors, Esc back, H home, I isometric, F free camera.
+
+## Real data path
+`/api/agent-states` (restored after reload) + SSE `event` messages from the unified event log (`backend/app/eventlog.py`).
+Visual states: idle, assigned (queued), walking (visual transition only), working (running / delegated by jarvis),
+reviewing (jarvis checks specialists' output), waiting (approval), error / completed (10 min after finish).
+Events carry `source` and `verified`; DRY RUN events are marked "симуляция" in the agent card.
+
+## Status (honest)
+| Area | State |
+|---|---|
+| District layout, roads, signals, sidewalks, crosswalks, parking, rail, port, marina, parks | done |
+| Tower exterior + 7 enterable floors (13 rooms incl. owner office → control panel) | done |
+| 10 more enterable functional buildings, cutaway + floors + rooms | done |
+| Agent desks bound to agent ids (125 library agents + jarvis) with server-driven states | done |
+| Vehicles follow lanes, stop on red, no overlaps; pedestrians on sidewalks/crosswalks, never in plots or under cars | done, unit-tested (600 s sim) |
+| Pedestrian–pedestrian collision avoidance | not done (small lateral offsets only) |
+| Agents walking between buildings (route layer) | not done — only the door→desk walk when a task arrives |
+| Decorative residential interiors | not done (residential buildings are exterior-only) |
+| Weather | decorative clouds and rain only |
+| Visual fidelity vs. the reference images | stylised low-poly procedural geometry; far less detail than the concept art |
+| Performance on real GPUs / real phones | not measured here (container renders with software GL ≈ 2 FPS, not representative) |
+| LOD | pedestrians hidden from far; interiors loaded on demand; merged meshes per block; no mesh LOD levels yet |
